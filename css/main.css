@@ -10,23 +10,62 @@ h1, h2, h3, p, body, header{
     font-family: 'Raleway', sans-serif;
     font-style: unset;
     padding: 1%;
+    margin: 0%;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+footer{
+    position: absolute;
+    bottom: 0;
+    padding-top: 2%;
+    font-size: 100%;
+    text-align: center;
 }
 
 body{
     width: auto;
-    background-color: #58A0E8;
-    padding: 2%;
+    background: url("../img/background1.JPG");
+    background-size: 270%;
+    background-repeat: no-repeat;
+    padding: 0%; 
+    margin: 0%;
+    color: white;
+}
+
+main{
+    width: auto;
+    height: auto;
+    position: fixed;
+    top: 0;
+    background-color: rgba(84, 104, 185, 0.3);
+    padding: 1%;
+    margin: 0%;
     color: white;
 }
 
 main img{
+    position: relative;
+    text-align: center;
+    height: auto;
+    width: auto;
+}
+
+main li:hover{
+    color: #154474;
+}
+
+main img{
     border-radius: 100%;
-    width: 35%;
+    width: auto;
     height: auto;
 }
 
 main ul{
-    padding: 0;
+    padding: 2%;
     margin: 0;
     list-style: none;
     text-align: center;
@@ -42,14 +81,38 @@ main li{
     border-radius: 10%;
 }
 
-/*Desktops*/
-@media only screen and (min-width: 769px) {
+@media only screen and (min-width: 600px) and (orientation: portrait)
+{
+    body{
+        background-size: 340%;
+    }
+    
+    main{
+        width: 40%;
+        height: auto;
+        position: fixed;
+        top: 0;
+        right: 0;
+        background-color: rgba(84, 104, 185, 0.1);
+        padding: 1%;
+        color: white;
+    }
+
+    main img{
+        height: auto;
+        width: auto;
+    }
+
+    main li:hover{
+        color: #154474;
+    }
+}
+
+@media only screen and (min-width: 768px) and (orientation: landscape){
     body{
         background: url("../img/background1.JPG");
-        background-size: cover;
-        /* background-repeat: repeat;
-        -webkit-animation: mymove 20s infinite; 
-        animation: mymove 20s infinite; */
+        background-size: 115%;
+        background-repeat: no-repeat;
     }
 
     main{
@@ -71,18 +134,4 @@ main li{
     main li:hover{
         color: #154474;
     }
-
-    
-    /* Chrome, Safari, Opera */
-    @-webkit-keyframes mymove {
-        from {background: url("../img/background1.JPG") 100%;}
-        to {background: url("../img/background2.JPG") 100%;}
-    }
-
-    /* Standard syntax */
-    @keyframes mymove {
-        from {background: url("../img/background1.JPG");}
-        to {background: url("../img/background2.JPG");}
-    }
-
 }

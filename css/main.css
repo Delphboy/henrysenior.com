@@ -42,42 +42,14 @@ main li{
     border-radius: 10%;
 }
 
-/* tablets
- @media only screen and (min-width: 600px) {
-    main img{
-        height: auto;
-        width: auto;
-    }
-
-    main li:hover{
-        color: #154474;;
-    }
-
-    body{
-        background-image: url("../img/background1.JPG");
-        background-size: 200%;
-        background-repeat: repeat;
-    }
-
-    main{
-        width: 40%;
-        height: auto;
-        position: fixed;
-        top: 0;
-        left: 0;
-        background-color: rgba(111, 117, 123, 0.5);
-        padding: 1%;
-        color: white;
-    }
-} */
-
 /*Desktops*/
 @media only screen and (min-width: 769px) {
     body{
-        background-size: 120%;
-        background-repeat: repeat;
-        -webkit-animation: mymove 20s infinite; /* Chrome, Safari, Opera */
-        animation: mymove 20s infinite;
+        background: url("../img/background1.JPG");
+        background-size: cover;
+        /* background-repeat: repeat;
+        -webkit-animation: mymove 20s infinite; 
+        animation: mymove 20s infinite; */
     }
 
     main{
@@ -85,8 +57,8 @@ main li{
         height: auto;
         position: fixed;
         top: 0;
-        left: 0;
-        background-color: rgba(111, 117, 123, 0.5);
+        right: 0;
+        background-color: rgba(84, 104, 185, 0.1);
         padding: 1%;
         color: white;
     }
@@ -100,10 +72,11 @@ main li{
         color: #154474;
     }
 
+    
     /* Chrome, Safari, Opera */
     @-webkit-keyframes mymove {
-        from {background: url("../img/background1.JPG");}
-        to {background: url("../img/background2.JPG");}
+        from {background: url("../img/background1.JPG") 100%;}
+        to {background: url("../img/background2.JPG") 100%;}
     }
 
     /* Standard syntax */
@@ -111,4 +84,5 @@ main li{
         from {background: url("../img/background1.JPG");}
         to {background: url("../img/background2.JPG");}
     }
+
 }

@@ -1,104 +1,114 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 
-.row::after {
-    content: "";
-    clear: both;
-    display: block;
-}
-[class*="col-"] {
-    float: left;
-}
-
-[class*="col-"] {
-    width: 100%;
-    margin: 1%;
-}
-
 
 /*General*/
 *{
-    color: #FFF;
     font-family: 'Raleway', sans-serif;
-    background-color: #7b9fb2;
 }
 
 h1, h2, h3, p, body, header{
-    color: #FFF;
     font-family: 'Raleway', sans-serif;
     font-style: unset;
+    padding: 1%;
 }
 
-header{
-    text-align: center;
+body{
+    width: auto;
+    background-color: #58A0E8;
+    padding: 2%;
+    color: white;
 }
 
-header img{
+main img{
     border-radius: 100%;
     width: 35%;
     height: auto;
 }
 
-header ul{
-    list-style: none;
-    position: inline;
+main ul{
     padding: 0;
-}
-
-nav ul{
-    text-align: center;
-    padding: 0%;
-}
-
-nav ul li{
+    margin: 0;
     list-style: none;
-    display: inline;
-    margin: 3%;
     text-align: center;
 }
 
-/*tablets*/
-@media only screen and (min-width: 601px) {
-    .col-m-1 {width: 8.33%;}
-    .col-m-2 {width: 16.66%;}
-    .col-m-3 {width: 25%;}
-    .col-m-4 {width: 33.33%;}
-    .col-m-5 {width: 41.66%;}
-    .col-m-6 {width: 50%;}
-    .col-m-7 {width: 58.33%;}
-    .col-m-8 {width: 66.66%;}
-    .col-m-9 {width: 75%;}
-    .col-m-10 {width: 83.33%;}
-    .col-m-11 {width: 91.66%;}
-    .col-m-12 {width: 100%;}
+main li{
+    text-align: center;
+    display: inline;
+    padding: 1%;
+    margin: 2%;
+    border-style: solid;
+    border-width: medium; 
+    border-radius: 10%;
 }
 
-/*Desktops*/
-@media only screen and (min-width: 768px) {
-    .col-1 {width: 8.33%;}
-    .col-2 {width: 16.66%;}
-    .col-3 {width: 25%;}
-    .col-4 {width: 33.33%;}
-    .col-5 {width: 41.66%;}
-    .col-6 {width: 50%;}
-    .col-7 {width: 58.33%;}
-    .col-8 {width: 66.66%;}
-    .col-9 {width: 75%;}
-    .col-10 {width: 83.33%;}
-    .col-11 {width: 91.66%;}
-    .col-12 {width: 100%;}
-
-    header img{
+/* tablets
+ @media only screen and (min-width: 600px) {
+    main img{
         height: auto;
         width: auto;
     }
 
-    nav ul li{
-        display: list-item;
-        list-style: lower-alpha;
-        text-align: left;
+    main li:hover{
+        color: #154474;;
     }
 
-    main section{
-        padding-top: 1%;
+    body{
+        background-image: url("../img/background1.JPG");
+        background-size: 200%;
+        background-repeat: repeat;
+    }
+
+    main{
+        width: 40%;
+        height: auto;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgba(111, 117, 123, 0.5);
+        padding: 1%;
+        color: white;
+    }
+} */
+
+/*Desktops*/
+@media only screen and (min-width: 769px) {
+    body{
+        background-size: 120%;
+        background-repeat: repeat;
+        -webkit-animation: mymove 20s infinite; /* Chrome, Safari, Opera */
+        animation: mymove 20s infinite;
+    }
+
+    main{
+        width: 40%;
+        height: auto;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgba(111, 117, 123, 0.5);
+        padding: 1%;
+        color: white;
+    }
+
+    main img{
+        height: auto;
+        width: auto;
+    }
+
+    main li:hover{
+        color: #154474;
+    }
+
+    /* Chrome, Safari, Opera */
+    @-webkit-keyframes mymove {
+        from {background: url("../img/background1.JPG");}
+        to {background: url("../img/background2.JPG");}
+    }
+
+    /* Standard syntax */
+    @keyframes mymove {
+        from {background: url("../img/background1.JPG");}
+        to {background: url("../img/background2.JPG");}
     }
 }

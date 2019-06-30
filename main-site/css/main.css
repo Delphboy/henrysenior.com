@@ -1,132 +1,156 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC&display=swap');
 
-
-/*General*/
 *{
-    font-family: 'Raleway', sans-serif;
-}
-
-h1, h2, h3, p, body, header{
-    font-family: 'Raleway', sans-serif;
-    font-style: unset;
-    padding: 1%;
-    margin: 0%;
-}
-
-a{
-    color: white;
-    text-decoration: none;
-}
-
-footer{
-    position: absolute;
-    bottom: 0;
-    padding-top: 2%;
-    font-size: 100%;
-    text-align: center;
+    font-family: 'Nunito', Helvetica, sans-serif;
 }
 
 body{
     width: auto;
-    background: url("../img/background1.JPG");
-    background-size: 270%;
-    background-repeat: no-repeat;
     padding: 0%; 
-    margin: 0%;
-    color: white;
+    margin-left: 10%;
+    margin-right: 10%;
+    color: #000000;
 }
 
-main{
-    width: auto;
-    height: auto;
-    position: fixed;
-    top: 0;
-    background-color: rgba(84, 104, 185, 0.3);
-    padding: 1%;
-    margin: 0%;
-    color: white;
-}
-
-main img{
-    position: relative;
+footer{
     text-align: center;
-    height: auto;
-    width: auto;
+}
+
+h1{
+    font-family: 'Amatic SC', Helvetica, sans-serif;
+    font-size: 70px;
+    text-align: center;
+}
+
+h2{
+    font-size: 35px;
+}
+
+p{
+    font-size: 20px;
+    color: #000000;
+    text-decoration: none;
+    margin-top: 40px;
+}
+
+a{
+    font-size: 20px;
+    color: #000000;
+}
+
+#picture img{
+    float: right;
+    width: 240px;
     border-radius: 100%;
 }
 
-main li:hover{
-    color: #154474;
+#picture figcaption{
+    display: none;
 }
 
-main ul{
-    padding: 2%;
-    margin: 0;
-    list-style: none;
-    text-align: center;
+#content{
+    float: none
 }
 
-main li{
-    text-align: center;
+/* navigation */
+nav{
+    background-color: #e0f7fa;
     display: inline;
-    padding: 1%;
-    margin: 2%;
-    border-style: solid;
-    border-width: medium; 
-    border-radius: 10%;
 }
 
-@media only screen and (min-width: 600px) and (orientation: portrait)
-{
+nav ul{
+    list-style-type:none;
+    margin:0;
+    padding:0;
+    align-items: center;
+    text-align: center;
+}
+
+nav li{
+    margin-right: 1px;
+    align-items: center;
+    display: inline;
+}
+
+nav li a{
+    display:inline-block;
+    min-width: 140px;
+    height: 50px;
+    align-items: center;
+    text-align: center;
+    line-height: 50px;
+    color: #000000;
+    text-decoration: none;
+}
+
+nav li a:hover{
+    text-underline-position: below;
+    color: #005662;
+    text-decoration: underline;
+}
+
+/* Projects */
+#projects ul{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+#project{
+    margin-block-end: 10px;
+}
+
+#project h2, #project p{
+    padding: 0px;
+    margin: 10px;
+}
+
+#project ul li{
+    margin-left: 10px;
+}
+
+.date{
+    font-size: 15px;
+    margin: 0px;
+    padding: 0px;
+}
+
+/* Make it responsive */
+@media only screen and (min-width: 320px) and (orientation: portrait){
     body{
-        background-size: 340%;
+        margin: 7%;
+    }
+
+    h1{
+        font-family: 'Amatic SC', Helvetica, sans-serif;
+        font-size: 50px;
+        text-align: center;
     }
     
-    main{
-        width: 40%;
-        height: auto;
-        position: fixed;
-        top: 0;
-        right: 0;
-        background-color: rgba(84, 104, 185, 0.1);
-        padding: 1%;
-        color: white;
+    h2{
+        font-size: 25px;
+    }
+    
+    p, a{
+        font-size: 20px;
+        color: #000000;
+        text-decoration: none;
     }
 
-    main img{
-        height: auto;
-        width: auto;
+    nav li a{
+        min-width: 70px;
     }
-
-    main li:hover{
-        color: #154474;
+    
+    #picture img{
+        max-width: 110px;
+        margin: 0px;
+        padding: 0%;
     }
 }
-
-@media only screen and (min-width: 768px) and (orientation: landscape){
-    body{
-        background: url("../img/background1.JPG");
-        background-size: 115%;
-        background-repeat: no-repeat;
-    }
-
-    main{
-        width: 40%;
-        height: auto;
-        position: fixed;
-        top: 0;
-        right: 0;
-        background-color: rgba(84, 104, 185, 0.1);
-        padding: 1%;
-        color: white;
-    }
-
-    main img{
-        height: auto;
-        width: auto;
-    }
-
-    main li:hover{
-        color: #154474;
-    }
-}
+/*
+💻 - code
+📓 - report
+📈 - slides
+*/

@@ -19,12 +19,12 @@
 
 <body>
     <div>
-        <h1>Henry Senior</h1>
+        <h1>Blog</h1>
     </div>
 
     <nav>
         <ul>
-            <li><a href="https://github.com/Delphboyindex.html">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="https://github.com/Delphboy">GitHub</a></li>
             <li><a href="https://www.linkedin.com/in/delphboy/">LinkedIn</a></li>
             <li><a href="blog.php">Blog</a></li>
@@ -32,25 +32,25 @@
     </nav>
     <hr />
     <section>
+         <?php
+         $directory = "blog/";
 
-        <figure id="picture">
-            <img src="img/pic.jpg" alt="Henry Senior" />
-            <figcaption>A picture of Henry Senior</figcaption>
-        </figure>
+// Open a directory, and read its contents
+if (is_dir($directory)){
+    if ($opendirectory = opendir($directory)){
+        while (($file = readdir($opendirectory)) !== false){
 
-        <div id="intro">
-            <h2>
-                Hi, I'm Henry - a Computer Scientist and Software Engineer.
-            </h2>
-    </section>
+            if(strpos($file, ".html")){
+                list($name, $extension) = explode(".", $file);
+                echo "<li><a href='blog/" . $file . "'>" . $name . "</a></li>\n";
+            }
 
-    <section>
-            <h3>
-                When I'm at a computer I can usually be found working on computer vision projects. For my dissertation I created an automatic alt-text generator to improve accessibility on social media.
-            </h3>
-            <h3>
-                When I'm away from the keyboard, I enjoy music and martial arts.
-            </h3>
+        }
+        closedir($opendirectory);
+    }
+}
+         ?>
+
     </section>
 
     <footer id='footer'>

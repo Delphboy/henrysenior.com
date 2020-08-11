@@ -40,7 +40,7 @@ if (is_dir($directory)){
     if ($opendirectory = opendir($directory)){
         while (($file = readdir($opendirectory)) !== false){
 
-            if(strpos($file, ".html")){
+            if(strpos($file, ".html") && !(strpos($file, "template"))){
                 list($name, $extension) = explode(".", $file);
                 echo "<li><a href='blog/" . $file . "'>" . $name . "</a></li>\n";
             }

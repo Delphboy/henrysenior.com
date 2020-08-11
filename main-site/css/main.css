@@ -33,6 +33,11 @@ h2{
 
 h3{
     font-size: 1.70rem;
+    color: #859900;
+}
+
+h4, h5, h6{
+    color: #859900;
 }
 
 p{
@@ -40,6 +45,10 @@ p{
     color: #93a1a1;
     text-decoration: none;
     margin-top: 40px;
+}
+
+ul, ol, li{
+    color: #93a1a1;
 }
 
 a{
@@ -125,8 +134,8 @@ nav li a:hover{
     padding: 0px;
 }
 
-.pre.src{
-    font-family: "Fira Code", monospace;
+pre{
+    font-family: 'Fira Code', monospace;
 }
 
 /* Make it responsive */
@@ -145,7 +154,7 @@ nav li a:hover{
         font-size: 25px;
     }
 
-    p, a{
+    p, a ul, ol{
         font-size: 20px;
         color: #000000;
         text-decoration: none;

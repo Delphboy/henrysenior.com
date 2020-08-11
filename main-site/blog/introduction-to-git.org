@@ -1,8 +1,7 @@
 #+TITLE: Introduction to Git
 #+AUTHOR: Henry Senior
-#+OPTIONS: toc:nil
-#+INFOJS_OPT: view:t mouse:underline buttons:0 path:http://thomasf.github.io/solarized-css/org-info.min.js
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://henrysenior.com/css/main.css" />
+#+OPTIONS: html-postamble:nil
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://henrysenior.com/css/main.css" /> <script src="../js/navigation.js">
 
 * What is Git?
 Git is a version control system developed by Linus Torvalds to help manage the Linux source code. There were lots of developers adding features, removing bugs, and doing other things to Linux and it was hard to keep track of all the changes. It was also difficult to see how changes were effecting the code as a whole, making it much harder to roll back to an older version if a bug was discovered. The aim of git was to create a version control system that would allow lots of developers to work on their own section of the code whilst maintaining a version that was bug free and ready to ship.

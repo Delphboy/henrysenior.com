@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-08-10 Mon 22:44 -->
+<!-- 2020-08-10 Mon 23:16 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introduction to Git</title>
@@ -261,7 +261,7 @@ org_html_manager.set("LOCAL_TOC", "1");
 org_html_manager.set("VIEW_BUTTONS", "0");
 org_html_manager.set("MOUSE_HINT", "underline");
 org_html_manager.set("FIXED_TOC", "0");
-org_html_manager.set("TOC", "1");
+org_html_manager.set("TOC", "0");
 org_html_manager.set("VIEW", "1");
 org_html_manager.setup();  // activate after the parameters are set
 /*]]>*///-->
@@ -320,22 +320,26 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org27fde31">1. What is Git?</a></li>
-<li><a href="#orgd47265c">2. What is GitHub?</a></li>
-<li><a href="#org7765ea7">3. What you'll need</a></li>
-<li><a href="#orgd94dc78">4. Setting Up Your Git Terminal</a></li>
-<li><a href="#org8ed3524">5. Creating Repositories on GitHub</a>
+<li><a href="#org16a8e85">1. What is Git?</a></li>
+<li><a href="#org0c35a3d">2. What is GitHub?</a></li>
+<li><a href="#orgf620e35">3. What you'll need</a></li>
+<li><a href="#orgdf64689">4. Setting Up Your Git Terminal</a></li>
+<li><a href="#org42ad651">5. Creating Repositories on GitHub</a>
 <ul>
-<li><a href="#org34f00b5">5.1. Making a New Repository</a></li>
+<li><a href="#orgfffc677">5.1. Making a New Repository</a></li>
 </ul>
 </li>
-<li><a href="#org7a81af3">6. Basic `Git` Commands</a></li>
+<li><a href="#org26af39d">6. Basic Git Commands</a>
+<ul>
+<li><a href="#orgca78468">6.1. Clone</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org27fde31" class="outline-2">
-<h2 id="org27fde31"><span class="section-number-2">1</span> What is Git?</h2>
+<div id="outline-container-org16a8e85" class="outline-2">
+<h2 id="org16a8e85"><span class="section-number-2">1</span> What is Git?</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Git is a version control system developed by Linus Torvalds to help manage the Linux source code. There were lots of developers adding features, removing bugs, and doing other things to Linux and it was hard to keep track of all the changes. It was also difficult to see how changes were effecting the code as a whole, making it much harder to roll back to an older version if a bug was discovered. The aim of git was to create a version control system that would allow lots of developers to work on their own section of the code whilst maintaining a version that was bug free and ready to ship.
@@ -343,8 +347,8 @@ Git is a version control system developed by Linus Torvalds to help manage the L
 </div>
 </div>
 
-<div id="outline-container-orgd47265c" class="outline-2">
-<h2 id="orgd47265c"><span class="section-number-2">2</span> What is GitHub?</h2>
+<div id="outline-container-org0c35a3d" class="outline-2">
+<h2 id="org0c35a3d"><span class="section-number-2">2</span> What is GitHub?</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 GitHub is a service built on top of Git that allows developers to collaborate all over the world to solve problems. It’s probably best summed up by this <a href="https://www.google.com">short video</a>.
@@ -352,8 +356,8 @@ GitHub is a service built on top of Git that allows developers to collaborate al
 </div>
 </div>
 
-<div id="outline-container-org7765ea7" class="outline-2">
-<h2 id="org7765ea7"><span class="section-number-2">3</span> What you'll need</h2>
+<div id="outline-container-orgf620e35" class="outline-2">
+<h2 id="orgf620e35"><span class="section-number-2">3</span> What you'll need</h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li><a href="https://github.com">A GitHub account</a> (GitLab or BitBucket should work equally well but this tutorial is focussed on GitHub)</li>
@@ -362,8 +366,8 @@ GitHub is a service built on top of Git that allows developers to collaborate al
 </div>
 </div>
 
-<div id="outline-container-orgd94dc78" class="outline-2">
-<h2 id="orgd94dc78"><span class="section-number-2">4</span> Setting Up Your Git Terminal</h2>
+<div id="outline-container-orgdf64689" class="outline-2">
+<h2 id="orgdf64689"><span class="section-number-2">4</span> Setting Up Your Git Terminal</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 First things first, we need to tell git our name and email. This will allow developers to contact one another to ask about code changes if git is being used outside a service like GitHub.
@@ -390,16 +394,16 @@ $ cd directory-name <span style="color: #93a1a1; font-style: italic;">#</span><s
 </div>
 </div>
 
-<div id="outline-container-org8ed3524" class="outline-2">
-<h2 id="org8ed3524"><span class="section-number-2">5</span> Creating Repositories on GitHub</h2>
+<div id="outline-container-org42ad651" class="outline-2">
+<h2 id="org42ad651"><span class="section-number-2">5</span> Creating Repositories on GitHub</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 A repository, or repo for short, is the place where your code lives. I should emphasis that it is where the code lives, not where other things that go along with a programming project live. Files such as compiler outputs (.class files in Java for example) should be generated by each developer, not stored on a git server. <a href="https://github.com/github/gitignore/">These kinds of files are excluded automatically by .gitignore files</a>.
 </p>
 </div>
 
-<div id="outline-container-org34f00b5" class="outline-3">
-<h3 id="org34f00b5"><span class="section-number-3">5.1</span> Making a New Repository</h3>
+<div id="outline-container-orgfffc677" class="outline-3">
+<h3 id="orgfffc677"><span class="section-number-3">5.1</span> Making a New Repository</h3>
 <div class="outline-text-3" id="text-5-1">
 <ol class="org-ol">
 <li>Go to <a href="https://www.github.com">github.com</a></li>
@@ -420,13 +424,23 @@ You will now have a pretty empty repository on GitHub
 </div>
 </div>
 
-<div id="outline-container-org7a81af3" class="outline-2">
-<h2 id="org7a81af3"><span class="section-number-2">6</span> Basic `Git` Commands</h2>
+<div id="outline-container-org26af39d" class="outline-2">
+<h2 id="org26af39d"><span class="section-number-2">6</span> Basic Git Commands</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-orgca78468" class="outline-3">
+<h3 id="orgca78468"><span class="section-number-3">6.1</span> Clone</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+The git clone command will download a repository into a new folder in your current working directory. When on a project’s page there will be a drop down button to get the URL required to clone that specific project. You can use the clone command to download the repository you just made in the previous step. Go to the repository's GitHub page (Github.com/&lt;your-username&gt;/&lt;repository-name&gt;) and press the green "Code" button. This will let you copy a link to the <code>.git</code> file.
+</p>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Henry Senior</p>
-<p class="date">Created: 2020-08-10 Mon 22:44</p>
+<p class="date">Created: 2020-08-10 Mon 23:16</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

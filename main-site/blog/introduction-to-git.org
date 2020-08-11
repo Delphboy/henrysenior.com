@@ -1,7 +1,7 @@
 #+TITLE: Introduction to Git
 #+AUTHOR: Henry Senior
-
-#+INFOJS_OPT: view:t toc:t ltoc:t mouse:underline buttons:0 path:http://thomasf.github.io/solarized-css/org-info.min.js
+#+OPTIONS: toc:nil
+#+INFOJS_OPT: view:t mouse:underline buttons:0 path:http://thomasf.github.io/solarized-css/org-info.min.js
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://thomasf.github.io/solarized-css/solarized-light.min.css" />
 
 * What is Git?
@@ -49,3 +49,5 @@ A repository, or repo for short, is the place where your code lives. I should em
 You will now have a pretty empty repository on GitHub
 
 * Basic Git Commands
+** Clone
+The git clone command will download a repository into a new folder in your current working directory. When on a project’s page there will be a drop down button to get the URL required to clone that specific project. You can use the clone command to download the repository you just made in the previous step. Go to the repository's GitHub page (Github.com/<your-username>/<repository-name>) and press the green "Code" button. This will let you copy a link to the =.git= file.

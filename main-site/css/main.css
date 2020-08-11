@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC&display=swap');
+@import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@4/distr/fira_code.css);
 
 *{
     font-family: 'Nunito', Helvetica, sans-serif;
@@ -124,6 +125,10 @@ nav li a:hover{
     padding: 0px;
 }
 
+.pre.src{
+    font-family: "Fira Code", monospace;
+}
+
 /* Make it responsive */
 @media only screen and (min-width: 320px) and (orientation: portrait){
     body{
@@ -135,11 +140,11 @@ nav li a:hover{
         font-size: 50px;
         text-align: center;
     }
-    
+
     h2{
         font-size: 25px;
     }
-    
+
     p, a{
         font-size: 20px;
         color: #000000;
@@ -149,15 +154,10 @@ nav li a:hover{
     nav li a{
         min-width: 70px;
     }
-    
+
     #picture img{
         max-width: 110px;
         margin: 0px;
         padding: 0%;
     }
 }
-/*
-💻 - code
-📓 - report
-📈 - slides
-*/

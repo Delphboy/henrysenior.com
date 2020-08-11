@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-08-11 Tue 20:50 -->
+<!-- 2020-08-11 Tue 21:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introduction to Git</title>
@@ -248,26 +248,31 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org3eab47d">1. What is Git?</a></li>
-<li><a href="#orgb4bd44c">2. What is GitHub?</a></li>
-<li><a href="#orgcb7d798">3. What you'll need</a></li>
-<li><a href="#orge529546">4. Setting Up Your Git Terminal</a></li>
-<li><a href="#org62305a0">5. Creating Repositories on GitHub</a>
+<li><a href="#orgd588fbc">1. What is Git?</a></li>
+<li><a href="#orga407788">2. What is GitHub?</a></li>
+<li><a href="#org1b165f8">3. What you'll need</a></li>
+<li><a href="#orga171212">4. Setting Up Your Git Terminal</a></li>
+<li><a href="#org1f50eb0">5. Creating Repositories on GitHub</a>
 <ul>
-<li><a href="#orgaa175d5">5.1. Making a New Repository</a></li>
+<li><a href="#org7e459e5">5.1. Making a New Repository</a></li>
 </ul>
 </li>
-<li><a href="#orgaf2e694">6. Basic Git Commands</a>
+<li><a href="#org53cc80e">6. Basic Git Commands</a>
 <ul>
-<li><a href="#org1a3b2f7">6.1. Clone</a></li>
+<li><a href="#org53ff0c1">6.1. Clone</a></li>
+<li><a href="#orga7e1aa6">6.2. Pull</a></li>
+<li><a href="#org1256b32">6.3. Status</a></li>
+<li><a href="#org54b93de">6.4. Add</a></li>
+<li><a href="#org8689cbb">6.5. Commit</a></li>
+<li><a href="#orgc234ca8">6.6. Push</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org3eab47d" class="outline-2">
-<h2 id="org3eab47d"><span class="section-number-2">1</span> What is Git?</h2>
+<div id="outline-container-orgd588fbc" class="outline-2">
+<h2 id="orgd588fbc"><span class="section-number-2">1</span> What is Git?</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Git is a version control system developed by Linus Torvalds to help manage the Linux source code. There were lots of developers adding features, removing bugs, and doing other things to Linux and it was hard to keep track of all the changes. It was also difficult to see how changes were effecting the code as a whole, making it much harder to roll back to an older version if a bug was discovered. The aim of git was to create a version control system that would allow lots of developers to work on their own section of the code whilst maintaining a version that was bug free and ready to ship.
@@ -275,8 +280,8 @@ Git is a version control system developed by Linus Torvalds to help manage the L
 </div>
 </div>
 
-<div id="outline-container-orgb4bd44c" class="outline-2">
-<h2 id="orgb4bd44c"><span class="section-number-2">2</span> What is GitHub?</h2>
+<div id="outline-container-orga407788" class="outline-2">
+<h2 id="orga407788"><span class="section-number-2">2</span> What is GitHub?</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 GitHub is a service built on top of Git that allows developers to collaborate all over the world to solve problems. It’s probably best summed up by this <a href="https://www.google.com">short video</a>.
@@ -284,8 +289,8 @@ GitHub is a service built on top of Git that allows developers to collaborate al
 </div>
 </div>
 
-<div id="outline-container-orgcb7d798" class="outline-2">
-<h2 id="orgcb7d798"><span class="section-number-2">3</span> What you'll need</h2>
+<div id="outline-container-org1b165f8" class="outline-2">
+<h2 id="org1b165f8"><span class="section-number-2">3</span> What you'll need</h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li><a href="https://github.com">A GitHub account</a> (GitLab or BitBucket should work equally well but this tutorial is focussed on GitHub)</li>
@@ -294,8 +299,8 @@ GitHub is a service built on top of Git that allows developers to collaborate al
 </div>
 </div>
 
-<div id="outline-container-orge529546" class="outline-2">
-<h2 id="orge529546"><span class="section-number-2">4</span> Setting Up Your Git Terminal</h2>
+<div id="outline-container-orga171212" class="outline-2">
+<h2 id="orga171212"><span class="section-number-2">4</span> Setting Up Your Git Terminal</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 First things first, we need to tell git our name and email. This will allow developers to contact one another to ask about code changes if git is being used outside a service like GitHub.
@@ -314,7 +319,7 @@ Git bash utilises the bash commands popular on macOS and Linux. Here are some of
 <pre class="src src-bash">$ ls <span style="color: #93a1a1; font-style: italic;">#</span><span style="color: #93a1a1; font-style: italic;">list the files in a directory</span>
 $ ls -a <span style="color: #93a1a1; font-style: italic;"># </span><span style="color: #93a1a1; font-style: italic;">list ALL the files in a directory</span>
 $ pwd <span style="color: #93a1a1; font-style: italic;">#</span><span style="color: #93a1a1; font-style: italic;">prints the working directory (you're current directory)</span>
-$ touch file-name.txt <span style="color: #93a1a1; font-style: italic;">#</span><span style="color: #93a1a1; font-style: italic;">creates a file called file name.txt</span>
+$ touch file-name.txt <span style="color: #93a1a1; font-style: italic;">#</span><span style="color: #93a1a1; font-style: italic;">creates a file called "file-name.txt"</span>
 $ mkdir directory-name <span style="color: #93a1a1; font-style: italic;">#</span><span style="color: #93a1a1; font-style: italic;">creates a directory called directory-name</span>
 $ cd directory-name <span style="color: #93a1a1; font-style: italic;">#</span><span style="color: #93a1a1; font-style: italic;">changes current directory to directory-name</span>
 </pre>
@@ -322,16 +327,16 @@ $ cd directory-name <span style="color: #93a1a1; font-style: italic;">#</span><s
 </div>
 </div>
 
-<div id="outline-container-org62305a0" class="outline-2">
-<h2 id="org62305a0"><span class="section-number-2">5</span> Creating Repositories on GitHub</h2>
+<div id="outline-container-org1f50eb0" class="outline-2">
+<h2 id="org1f50eb0"><span class="section-number-2">5</span> Creating Repositories on GitHub</h2>
 <div class="outline-text-2" id="text-5">
 <p>
-A repository, or repo for short, is the place where your code lives. I should emphasis that it is where the code lives, not where other things that go along with a programming project live. Files such as compiler outputs (.class files in Java for example) should be generated by each developer, not stored on a git server. <a href="https://github.com/github/gitignore/">These kinds of files are excluded automatically by .gitignore files</a>.
+A repository, or repo for short, is the place where your code lives. I should emphasis that it is where the code lives, not where other things that go along with a programming project live. Files such as compiler outputs (<code>.class</code> files in Java for example) should be generated by each developer, not stored on a git server. <a href="https://github.com/github/gitignore/">These kinds of files are excluded automatically by .gitignore files</a>.
 </p>
 </div>
 
-<div id="outline-container-orgaa175d5" class="outline-3">
-<h3 id="orgaa175d5"><span class="section-number-3">5.1</span> Making a New Repository</h3>
+<div id="outline-container-org7e459e5" class="outline-3">
+<h3 id="org7e459e5"><span class="section-number-3">5.1</span> Making a New Repository</h3>
 <div class="outline-text-3" id="text-5-1">
 <ol class="org-ol">
 <li>Go to <a href="https://www.github.com">github.com</a></li>
@@ -341,7 +346,7 @@ A repository, or repo for short, is the place where your code lives. I should em
 <li>Give it a description</li>
 <li>Decide whether it will be public or private</li>
 <li>Initilise the repo with a README.md file</li>
-<li>Add a .gitignore file for the language or IDE you’re using</li>
+<li>Add a <code>.gitignore</code> file for the language or IDE you’re using</li>
 <li>Add a license (Any of the first three do the job perfectly)</li>
 </ol>
 
@@ -352,16 +357,93 @@ You will now have a pretty empty repository on GitHub
 </div>
 </div>
 
-<div id="outline-container-orgaf2e694" class="outline-2">
-<h2 id="orgaf2e694"><span class="section-number-2">6</span> Basic Git Commands</h2>
+<div id="outline-container-org53cc80e" class="outline-2">
+<h2 id="org53cc80e"><span class="section-number-2">6</span> Basic Git Commands</h2>
 <div class="outline-text-2" id="text-6">
 </div>
-<div id="outline-container-org1a3b2f7" class="outline-3">
-<h3 id="org1a3b2f7"><span class="section-number-3">6.1</span> Clone</h3>
+<div id="outline-container-org53ff0c1" class="outline-3">
+<h3 id="org53ff0c1"><span class="section-number-3">6.1</span> Clone</h3>
 <div class="outline-text-3" id="text-6-1">
 <p>
-The git clone command will download a repository into a new folder in your current working directory. When on a project’s page there will be a drop down button to get the URL required to clone that specific project. You can use the clone command to download the repository you just made in the previous step. Go to the repository's GitHub page (Github.com/&lt;your-username&gt;/&lt;repository-name&gt;) and press the green "Code" button. This will let you copy a link to the <code>.git</code> file.
+The git clone command will download a repository into a new folder in your current working directory. When on a project’s page there will be a drop down button to get the URL required to clone that specific project. You can use the clone command to download the repository you just made in the previous step. Go to the repository's GitHub page (<code>github.com/&lt;your-username&gt;/&lt;repository-name&gt;</code>) and press the green "Code" button. This will let you copy a link to the <code>.git</code> file.
 </p>
+</div>
+</div>
+
+<div id="outline-container-orga7e1aa6" class="outline-3">
+<h3 id="orga7e1aa6"><span class="section-number-3">6.2</span> Pull</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+Once you’ve navigated into your git project’s directory, you’ll need to make sure you have the most up to date version of the code. This is useful if you’ve made changes on a computer, synced them with GitHub, and now want to update the code on the computer you’re currently using.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">$ git pull
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1256b32" class="outline-3">
+<h3 id="org1256b32"><span class="section-number-3">6.3</span> Status</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+This command will list all the files which have changed since the last commit. However, it will ignore files that are included in your <code>.gitignore</code> file. For example, in a git repository for a Java project, the <code>.gitingore</code> file will include the line <code>*.class</code> which will stop git from saving any <code>.class</code> file.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">$ git status
+</pre>
+</div>
+
+<p>
+<code>git status</code> will be colour coded; red for files that haven’t been added to the commit, and green for files that have been included.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org54b93de" class="outline-3">
+<h3 id="org54b93de"><span class="section-number-3">6.4</span> Add</h3>
+<div class="outline-text-3" id="text-6-4">
+<p>
+This is the command adds files or folders to your next commit. The add command also accepts globs as an input, allowing all the files in a directory to be added through one command.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">$ git add file-name <span style="color: #93a1a1; font-style: italic;">#</span><span style="color: #93a1a1; font-style: italic;">adds file-name</span>
+$ git add dir/* <span style="color: #93a1a1; font-style: italic;">#</span><span style="color: #93a1a1; font-style: italic;">adds everything in the directory 'dir'</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8689cbb" class="outline-3">
+<h3 id="org8689cbb"><span class="section-number-3">6.5</span> Commit</h3>
+<div class="outline-text-3" id="text-6-5">
+<p>
+Once all the files that have been changed have been added, it’s time to commit your changes. A commit is essentially a version, allowing you to roll back to later in time if something goes wrong. It’s good practice to include a short descriptive message telling others what changes you have made. This is achieved by adding the ‘-m’ option, followed by a message.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">$ git commit -m <span style="color: #2aa198;">"A message briefly saying what changes you made"</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc234ca8" class="outline-3">
+<h3 id="orgc234ca8"><span class="section-number-3">6.6</span> Push</h3>
+<div class="outline-text-3" id="text-6-6">
+<p>
+When you’ve finished for the day, or want to publish your changes for others to see, it’s time to push your code up to GitHub. A git push operation will send your latest commit up to GitHub, so it’s a good idea to run a git status to make sure everything will be included. If not, it’s just a case of using git add to include them in a new commit, before doing a git commit -m to ensure the changes are ready to ship.
+</p>
+
+<p>
+The git push command will push the branch you’re currently working on up to GitHub’s version of that branch.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">$ git push <span style="color: #93a1a1; font-style: italic;">#</span><span style="color: #93a1a1; font-style: italic;">pushes your changes up to GitHub</span>
+</pre>
+</div>
 </div>
 </div>
 </div>

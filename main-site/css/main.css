@@ -36,19 +36,24 @@ h3{
     color: #859900;
 }
 
+h3.home{
+    font-size: 1.70em;
+    color: #657b83;
+}
+
 h4, h5, h6{
     color: #859900;
 }
 
 p{
     font-size: 20px;
-    color: #93a1a1;
+    color: #657b83;
     text-decoration: none;
     margin-top: 40px;
 }
 
 ul, ol, li{
-    color: #93a1a1;
+    color: #657b83;
 }
 
 a{
@@ -97,7 +102,7 @@ nav li a{
     align-items: center;
     text-align: center;
     line-height: 50px;
-    color: #000000;
+    color: #657b83;
     text-decoration: none;
 }
 
@@ -136,6 +141,13 @@ nav li a:hover{
 
 pre{
     font-family: 'Fira Code', monospace;
+    background-color: #eee8d5;
+}
+
+code{
+    font-family: 'Fira Code', monospace;
+    font-size: 18px;
+    background-color: #eee8d5;
 }
 
 /* Make it responsive */
@@ -156,7 +168,7 @@ pre{
 
     p, a ul, ol{
         font-size: 20px;
-        color: #000000;
+        color: #657b83;
         text-decoration: none;
     }
 

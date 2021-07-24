@@ -1,6 +1,6 @@
 ---
-title: Hi, I'm Henry - a Computer Scientist and Software Engineer. 
-feature_image: "https://images.unsplash.com/photo-1627045529601-087483c43dde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80"
+title: Hi, I'm Henry - a Computer Scientist and Software Engineer
+feature_image: "/img/Judas0421-4.jpg"
 feature_text: |
   
 ---

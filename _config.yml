@@ -44,9 +44,11 @@ navigation_header:
 
 # Footer nav
 navigation_footer:
-- title: GitHub
+- title: 👩‍💻
   url: "https://github.com/Delphboy"
-- title: 📷
+- title: 🦅
+  url: "https://twitter.com/Delphboy"
+- title: 📷 by James Sloane
   url: "http://jamessloane.com"
 
 # Collections

@@ -1,4 +1,0 @@
-#+TITLE: Template Fil
-#+AUTHOR: Henry Senior
-#+OPTIONS: html-postamble:nil
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://henrysenior.com/css/main.css" /> <script src="../js/navigation.js">

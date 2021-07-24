@@ -21,12 +21,12 @@ plugins:
 - jemoji
 
 # Site settings
-url: 'https://mydomain.com'
+url: 'https://henrysenior.com'
 baseurl: ''
-title: 'My website'
-description: 'This is my new website'
+title: 'Henry Senior'
+description: 'Personal blog'
 permalink: pretty
-logo: "https://www.gravatar.com/avatar/6c0377abcf4da91cdd35dea4554b2a4c?s=52"
+# logo: "https://avatars.githubusercontent.com/u/3028359?v=4"
 
 # Pagination
 paginate: 5
@@ -43,18 +43,16 @@ navigation_header:
 
 # Footer nav
 navigation_footer:
-- title: Back to top
-  url: "#top"
+- title: GitHub
+  url: "https://github.com/Delphboy"
 
 # Collections
 collections:
   posts:
-    title: Posts
+    title: Blog Posts
     output: true
-    description: "My thoughts and ideas"
-    feature_text: |
-      Welcome to my blog
-    feature_image: "https://picsum.photos/2560/600?image=866"
+    #description: "My thoughts and ideas"
+    feature_image: "https://images.unsplash.com/photo-1626963524641-8c45a4b7ad38?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=962&q=80"
 
 # Collection settings
 defaults:

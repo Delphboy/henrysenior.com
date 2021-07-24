@@ -7,6 +7,7 @@ exclude:
 - Gemfile
 - Gemfile.lock
 - netlify.toml
+- .github/
 
 # Set plugins
 plugins:
@@ -45,6 +46,8 @@ navigation_header:
 navigation_footer:
 - title: GitHub
   url: "https://github.com/Delphboy"
+- title: 📷
+  url: "http://jamessloane.com"
 
 # Collections
 collections:

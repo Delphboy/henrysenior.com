@@ -55,7 +55,7 @@ collections:
     title: Blog Posts
     output: true
     #description: "My thoughts and ideas"
-    feature_image: "https://images.unsplash.com/photo-1626963524641-8c45a4b7ad38?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=962&q=80"
+    #feature_image: "https://images.unsplash.com/photo-1626963524641-8c45a4b7ad38?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=962&q=80"
 
 # Collection settings
 defaults:

@@ -47,7 +47,7 @@ In Computer Science graphs don’t refer to the things Chris Whitty shows us at 
 
 ![An image of a Computer Science graph](/img/2021-12-19/graph.png)
 
-They are powerful representations that can model lots of things. The circles, nodes, could represent a group of people and the lines, edges, could show who is friends with whom. Lots of information can be stored in a node, but for simplicity, let’s just show people’s favourite colour. Machine learning on graphs revolves around learning on graphs, and there are several applications for this. The first would be predicting possible links between nodes; in the context of this graph, it would be predicting potential friendships within the group. Another task would be predicting attributes of new nodes; if a new node was attached, what colour would it be?
+They are powerful representations that can model lots of things. The circles, nodes, could represent a group of people and the lines, edges, could show who is friends with whom. Lots of information can be stored in a node, but for simplicity, let’s just show people’s favourite colour. Machine learning on graphs revolves around how computers can learn from graph structured data. Information stored in a node is shared and collated with its neighbours. There are several applications for this. The first would be predicting possible links between nodes; in the context of this graph, it would be predicting potential friendships within the group. Another task would be predicting attributes of new nodes; if a new node was attached, what colour would it be?
 
 ### What’s This Got to do with Computer Vision?
 

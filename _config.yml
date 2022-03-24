@@ -39,12 +39,12 @@ navigation_header:
   url: /
 - title: About
   url: /about/
-- title: Blog
+- title: Words
   url: /blog/
 
 # Footer nav
 navigation_footer:
-- title: 👩‍💻
+- title: 👨‍💻
   url: "https://github.com/Delphboy"
 - title: 🦅
   url: "https://twitter.com/Delphboy"

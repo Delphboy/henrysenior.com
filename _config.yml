@@ -20,6 +20,8 @@ plugins:
 - jekyll-commonmark
 - jekyll-include-cache
 - jemoji
+# - jekyll-katex
+# - jekyll-scholar
 
 # Site settings
 url: 'https://henrysenior.com'

@@ -23,17 +23,27 @@ plugins:
 # - jekyll-katex
 # - jekyll-scholar
 
+twitter:
+  username: Delphboy
+author: Henry Senior
+social: # jekyll-seo-tag > social overrides
+  name: Henry Senior # jekyll-seo-tag > real name
+  links:  # jekyll-seo-tag > social aliases (sameAs)
+    - https://twitter.com/Delphboy
+    - https://www.linkedin.com/in/delphboy
+    - https://github.com/Delphboy
+
 # Site settings
 url: 'https://henrysenior.com'
 baseurl: ''
 title: 'Henry Senior'
 description: 'Personal blog'
 permalink: pretty
-# logo: "https://avatars.githubusercontent.com/u/3028359?v=4"
-
-# Pagination
+timezone: Europe/London
 paginate: 5
 paginate_path: blog/page:num
+encoding: utf-8
+lang: en-GB
 
 # Header nav
 navigation_header:
@@ -41,6 +51,8 @@ navigation_header:
   url: /
 - title: About
   url: /about/
+- title: Publications
+  url: /publications/
 - title: Words
   url: /blog/
 
@@ -50,6 +62,8 @@ navigation_footer:
   url: "https://github.com/Delphboy"
 - title: 🎓
   url: "https://scholar.google.com/citations?user=tL5MtX0AAAAJ&hl=en"
+- title: 👔
+  url: "https://linkedin.com/in/delphboy/"
 - title: 📷 by James Sloane
   url: "http://jamessloane.com"
 
@@ -75,3 +89,8 @@ defaults:
       type: "pages"
     values:
       layout: page # Set the default layout for pages
+
+# Custom styles
+sass:
+  sass_dir: _sass
+  style: compressed

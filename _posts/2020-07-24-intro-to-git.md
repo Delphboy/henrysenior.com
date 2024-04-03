@@ -1,8 +1,7 @@
 ---
 title: What is Git?
-categories:
-- Introductions
-- Software Engineering
+collection: words
+permalink: /words/2020-07-24-intro-to-git
 excerpt: "A copy of my introduction to Git post created for the University of Salford Computing Society. Introduces git, alongside the basic commands such as `clone`, `pull`, `status`, `add`, `commit`, and `push`."
 ---
 

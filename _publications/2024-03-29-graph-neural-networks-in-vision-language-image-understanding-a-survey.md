@@ -1,7 +1,7 @@
 ---
 title: "Graph neural networks in vision-language image understanding: a survey"
 collection: publications
-permalink: /publication/graph-neural-networks-in-vision-language-image-understanding-a-survey
+permalink: /publications/graph-neural-networks-in-vision-language-image-understanding-a-survey
 excerpt: '2D image understanding is a complex problem within computer vision, but it holds the key to providing human-level scene comprehension. It goes further than identifying the objects in an image, and instead, it attempts to understand the scene. Solutions to this problem form the underpinning of a range of tasks...'
 date: 2024-03-29
 venue: 'The Visual Computer'

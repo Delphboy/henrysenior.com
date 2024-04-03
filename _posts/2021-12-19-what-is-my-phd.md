@@ -1,8 +1,7 @@
 ---
 title: What is My PhD About?
-categories:
-- PhD
-- research
+collection: words
+permalink: /words/2021-12-19-what-is-my-phd
 excerpt: "A brief overview of what my PhD is about. Written for friends and family."
 ---
 
@@ -24,7 +23,7 @@ Within 2D scene understanding there are three main tasks that require a humanesq
 
 Image captioning is the challenge of getting a computer to describe a picture using natural language. In order to do this well, the computer must not only identify the objects in the scene but also understand the wider context in which the objects exist. More traditional approaches, such as template-based image captioning systems, fit the detected objects into premade templates. This leads to captions such as: *“Image may contain: people playing sports, baseball and stadium”* (Facebook Automatic Alt-Text).
 
-![An image of a baseball player from the COCO data set](/assets/2021-12-19/baseball.png)
+![An image of a baseball player from the COCO data set](/images/words/2021-12-19/baseball.png)
 
 More complex approaches, such as those using AI for generating the language, might come up with a caption like *“A baseball player swinging a bat”* (Microsoft Word Alt-Text Generator). Whilst this is a significant improvement, it hasn’t mentioned the two players behind the batter. Should the system have included them in the caption? Would you have mentioned them? Would your answer to those questions change if you were describing the image to a severely sight impaired (blind) or sight impaired (partially sighted) person? Image captioning isn’t just used as an academic exercise removed from reality; it has real world impact. Companies such as Meta use image captioning across their products to ensure that they are accessible to those with sight impairments.
 
@@ -46,7 +45,7 @@ The title for my PhD funding is ‘Machine Learning on Graphs’, which means I�
 
 In Computer Science graphs don’t refer to the things Chris Whitty shows us at the Downing Street press conferences, rather they are a representation of how different things interact with one another. Below is a picture of a Computer Science graph.
 
-![An image of a Computer Science graph](/assets/2021-12-19/graph.png)
+![An image of a Computer Science graph](/images/words/2021-12-19/graph.png)
 
 They are powerful representations that can model lots of things. The circles, nodes, could represent a group of people and the lines, edges, could show who is friends with whom. Lots of information can be stored in a node, but for simplicity, let’s just show people’s favourite colour. Machine learning on graphs revolves around how computers can learn from graph structured data. Information stored in a node is shared and collated with its neighbours. There are several applications for this. The first would be predicting possible links between nodes; in the context of this graph, it would be predicting potential friendships within the group. Another task would be predicting attributes of new nodes; if a new node was attached, what colour would it be?
 

@@ -3,6 +3,7 @@ title: What is My PhD About?
 categories:
 - PhD
 - research
+excerpt: "A brief overview of what my PhD is about. Written for friends and family."
 ---
 
 If I've sent you this blog post it's probably because you've asked me something along the lines of, *"What's your PhD in again? Something to do with computers, right?"*. Well, my hope is that this little post will explain what I'm trying to do with the next three or so years of my life.

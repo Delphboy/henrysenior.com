@@ -3,7 +3,7 @@ title: What is Git?
 categories:
 - Introductions
 - Software Engineering
-feature_image: "https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1348&q=80"
+excerpt: "A copy of my introduction to Git post created for the University of Salford Computing Society. Introduces git, alongside the basic commands such as `clone`, `pull`, `status`, `add`, `commit`, and `push`."
 ---
 
 Git is a version control system developed by Linus Torvalds to help manage the Linux source code. There were lots of developers adding features, removing bugs, and doing other things to Linux and it was hard to keep track of all the changes. It was also difficult to see how changes were effecting the code as a whole, making it much harder to roll back to an older version if a bug was discovered. The aim of git was to create a version control system that would allow lots of developers to work on their own section of the code whilst maintaining a version that was bug free and ready to ship.
@@ -61,7 +61,7 @@ You will now have a pretty empty repository on GitHub
 
 The git clone command will download a repository into a new folder in your current working directory. When on a project's page there will be a drop down button to get the URL required to clone that specific project. You can use the clone command to download the repository you just made in the previous step. Go to the repository\'s GitHub page ( `github.com/<your-username>/<repository-name>` ) and press the green "Code" button. This will let you copy a link to the `.git` file.
 
-# Pull
+## Pull
 
 Once you've navigated into your git project's directory, you'll need to make sure you have the most up to date version of the code. This is useful if you've made changes on a computer, synced them with GitHub,  and now want to update the code on the computer you're currently using.
 
@@ -70,7 +70,7 @@ git pull
 
 ```
 
-# Status
+## Status
 
 This command will list all the files which have changed since the last commit. However, it will ignore files that are included in your `.gitignore` file. For example, in a git repository for a Java project, the `.gitingore` file will include the line `*.class` which will stop git from saving any `.class` file.
 
@@ -80,7 +80,7 @@ git status
 
 `git status` will be colour coded; red for files that haven't been added to the commit, and green for files that have been included.
 
-# Add
+## Add
 
 This is the command adds files or folders to your next commit. The add command also accepts globs as an input, allowing all the files in a directory to be added through one command.
 
@@ -105,5 +105,5 @@ When you've finished for the day, or want to publish your changes for others to 
 The git push command will push the branch you're currently working on up to GitHub's version of that branch.
 
 ```bash
-git push origin master#pushes your changes up to GitHub
+git push origin master #pushes your changes up to GitHub
 ```

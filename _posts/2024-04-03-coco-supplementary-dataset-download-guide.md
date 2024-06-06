@@ -46,7 +46,7 @@ Most of the time you will have to download the BUTD data
 ```bash
 mkdir /data/scratch/$USER/COCO/bu_data
 cd /data/scratch/$USER/COCO/bu_data
-wget https://storage.googleapis.com/bottom-up-attention/trainval.zip
+wget https://storage.googleapis.com/up-down-attention/trainval.zip
 unzip trainval.zip
 ```
 

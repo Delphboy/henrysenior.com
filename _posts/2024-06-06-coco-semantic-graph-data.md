@@ -1,7 +1,9 @@
 ---
 title: COCO Semantic Graph Data
 collection: words
-permalink: /words/2024-05-06coco-semantic-graph-data
+permalink: /words/2024-05-06-coco-semantic-graph-data
+redirect_from:
+  - /words/2024-05-06coco-semantic-graph-data
 excerpt: "A guide to downloading the BUTD and VSUA/SGAE supplementary datasets for COCO."
 ---
 

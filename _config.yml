@@ -11,7 +11,7 @@ locale                   : "en-GB"
 title                    : "Henry Senior"
 title_separator          : "-"
 name                     : &name "Henry Senior"
-description              : &description "PhD Student"
+description              : &description "Lecturer in Computer Science"
 url                      : https://henrysenior.com
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "delphboy/henrysenior.com"
@@ -24,9 +24,9 @@ author:
   avatar           : "profile.png"
   name             : "Henry Senior"
   pronouns         : # example: "she/her"  
-  bio              : "PhD Student in Computer Vision at Queen Mary University London. Applying GNNs to Vision-Language."
+  bio              : "Lecturer in Computer Science. Teaching computers to see."
   location         : "Somewhere on a computer"
-  employer         : "Queen Mary University London"
+  employer         : "The University of Salford"
 
   # Academic websites
   arxiv            : # URL - Update with the correct link to your profile

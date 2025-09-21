@@ -205,6 +205,9 @@ collections:
   projects:
     output: true
     permalink: /:collection/:path/
+  fyp:
+    output: true
+    permalink: /:collection/:path/
   talks:
     output: true
     permalink: /:collection/:path/
@@ -253,6 +256,15 @@ defaults:
   - scope:
       path: ""
       type: projects
+    values:
+      layout: single
+      author_profile: false
+      share: false
+      comment: false
+  # _fyp
+  - scope:
+      path: ""
+      type: fyp
     values:
       layout: single
       author_profile: false

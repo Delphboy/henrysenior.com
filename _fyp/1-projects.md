@@ -25,6 +25,11 @@ PyTorch and JAX are two widely used ML frameworks. However, they are highly comp
 
 The project will involve the creation and training of different neural networks across a range of domains in all three libraries. It will then compare the training and inference performance of these models across different hardware. The project could also be extended to discuss the overall developer experience.
 
+### Object Detection for Self Driving Cars
+
+The [KITTI](https://www.cvlibs.net/datasets/kitti/) dataset is widely used for 2D and 3D object detection. Containing both monocular and stereo RGB images as well as LIDAR point clouds, it the dataset that underpins a lot of academic research related to autonomous vehicles and robotics. In the domain of self-driving cars, object detection can be performed in both 2D and 3D, with each method having different tradeoffs. 
+
+This project will make use of the KITTI dataset to develop an object detector for use in a self-driving vehicle. You decide whether to use the RGB images (monocular or stereo), the LIDAR point cloud data, or whether to use both and develop a fusion technique.
 
 ### Remote Sense Change Image Captioning using DINOv3
 

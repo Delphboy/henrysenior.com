@@ -5,6 +5,10 @@ collection: fyp
 permalink: /fyp/project-ideas
 ---
 
+## What Makes a Good Project?
+
+To achieve high marks in your final year project, you need to do something that is above and beyond what we teach you on your degree programme. If you are going to produce something that we could set as an assignment for the second or third year module, you will not achieve high marks. A good project will showcase that you have learnt new technologies, skills, and techniques which you have used to produce something that impresses. A good rule of thumb is: blow our socks off, get high marks. 
+
 ## Deep Learning Projects
 
 ### Image Captioning

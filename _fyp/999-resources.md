@@ -5,12 +5,19 @@ collection: fyp
 permalink: /fyp/resources
 ---
 
+# Getting Started with Deep Learning
+- **[Hello world, PyTorch style](https://docs.pytorch.org/tutorials/beginner/basics/intro.html)**: The PyTorch team's introduction to deep learning introduces you to all the basic concepts and guides you through training your own neural network
+- **[TinyGrad MNIST](https://docs.tinygrad.org/mnist/)** - A guide to solving MNIST (the hello world of deep learning) using TinyGrad
+- **[Getting started in JAX](https://docs.jax.dev/en/latest/beginner_guide.html#beginner-guide)** - The JAX team's guide to getting started with JAX.
+- **[Getting started with PyTorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/get_started/introduction.html):** For those of you wanting to develop GNNs, start here! They also have some [lecture videos](https://pytorch-geometric.readthedocs.io/en/latest/get_started/colabs.html) you may find useful.
 
 # Books
+
 - **[Alice's Adventure in Differentiable Wonderland](https://arxiv.org/pdf/2404.17625):** An introductory text book to differentiable programming (using frameworks like PyTorch or JAX to create neural networks).
 - **[The Art of Science and Engineering](https://press.stripe.com/the-art-of-doing-science-and-engineering):** Turing award winner Richard Hamming's Art of Science and Engineering is a cult classic book that covers a wide array of topics, from mathematics to 'style'. Don't be put off by some of the very technical chapters, they can be dense but rewarding. During his time at the US Naval college he also delivered a [lecture series](https://www.youtube.com/watch?v=AD4b-52jtos&list=PL2FF649D0C4407B30) based on his book chapters.
 
 # Websites
+
 - **[Deep learning engineering tricks](/words/2024-05-31-deep-learning-engineering-tricks):** A blog post a wrote a while ago discussing different tricks you can use within your deep learning model to improve its performance.
 - **[Scaling Your Model in JAX](https://jax-ml.github.io/scaling-book/)** An online book created by Google DeepMind that provides a rich resource in how to scale your deep learning models.
 
@@ -18,6 +25,7 @@ permalink: /fyp/resources
 # Lectures
 
 - **Karpathy's [Zero to Hero](https://karpathy.ai/zero-to-hero.html) Series:** Andrej Karpathy completed his PhD in image captioning at Stanford before going on to be a founding member of OpenAI. He then moved on to run Tesla's self driving team, before returning to OpenAI. In this lecture series he introduces the foundations of deep learning, starting from backpropogation, and goes all the way to the Transformer. 
+- **[3Blue1Brown's Introduction to Deep Learning](https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi):** An excellent animated lecture series introducing the key theory behind deep learning.
 - **Richard Hamming's [Learning to Learn](https://www.youtube.com/watch?v=AD4b-52jtos&list=PL2FF649D0C4407B30) Series:** Based on his book [The Art of Science and Engineering](https://press.stripe.com/the-art-of-doing-science-and-engineering), he recaps his career discussing what worked (and what didn't). In later lectures he covers more abstract concepts such as "taste". His lecture titled [You and Your Research](https://www.youtube.com/watch?v=a1zDuOPkMSw&list=PL2FF649D0C4407B30&index=31) is considered a 'must watch' in many circles of computer science. 
 
 

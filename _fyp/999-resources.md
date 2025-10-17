@@ -20,6 +20,8 @@ permalink: /fyp/resources
 
 - **[Deep learning engineering tricks](/words/2024-05-31-deep-learning-engineering-tricks):** A blog post a wrote a while ago discussing different tricks you can use within your deep learning model to improve its performance.
 - **[Scaling Your Model in JAX](https://jax-ml.github.io/scaling-book/)** An online book created by Google DeepMind that provides a rich resource in how to scale your deep learning models.
+- **[The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/):** A very famous post explaining how the Transformer works under the hood. Recommended reading for anyone starting out in deep learning and wanting to use Transformers.
+- **[Transformers are Graph Neural Networks](https://thegradient.pub/transformers-are-graph-neural-networks/):** A very good post explaining an alternative way of viewing how the Transformer works. 
 
 
 # Lectures
@@ -33,3 +35,7 @@ permalink: /fyp/resources
 
 - **[Attention is All You Need](https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf):** This famous 2017 paper from Google introduces the Transformer architecture, the breakthrough that has lead to the modern AI revolution. If you are working in deep learning, it is essential to understand this paper.
 - **[Neural Message Passing for Quantum Chemistry](https://proceedings.mlr.press/v70/gilmer17a/gilmer17a.pdf):** This paper introduces the concept of "message passing" for graph neural networks. It presents a framework for "messages", "update functions", and "readout functions" that has been widely adopted in the GNN literature. 
+- **[Vision Transformer (ViT)](https://arxiv.org/pdf/2010.11929/1000):** This paper introduces the 'Vision Transformer' or 'ViT' and shows how a Transformer can be used to replace traditional computer vision architectures such as CNNs. PyTorch provides pretrained [ViT models](https://docs.pytorch.org/vision/main/models/vision_transformer.html).
+- **[Vision GNN (ViG)](https://proceedings.neurips.cc/paper_files/paper/2022/file/3743e69c8e47eb2e6d3afaea80e439fb-Paper-Conference.pdf):**  This paper introduces Vision GNN (ViG) which shows how a GNN can be used instead of a Transformer to provide a vision backbone. It works by constructing a kNN graph over patch features. Section 3.1 contains an interesting discussion on how they minimised the oversmoothing problem associated with GNNs
+
+

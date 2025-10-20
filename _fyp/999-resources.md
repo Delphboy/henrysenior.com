@@ -38,4 +38,14 @@ permalink: /fyp/resources
 - **[Vision Transformer (ViT)](https://arxiv.org/pdf/2010.11929/1000):** This paper introduces the 'Vision Transformer' or 'ViT' and shows how a Transformer can be used to replace traditional computer vision architectures such as CNNs. PyTorch provides pretrained [ViT models](https://docs.pytorch.org/vision/main/models/vision_transformer.html).
 - **[Vision GNN (ViG)](https://proceedings.neurips.cc/paper_files/paper/2022/file/3743e69c8e47eb2e6d3afaea80e439fb-Paper-Conference.pdf):**  This paper introduces Vision GNN (ViG) which shows how a GNN can be used instead of a Transformer to provide a vision backbone. It works by constructing a kNN graph over patch features. Section 3.1 contains an interesting discussion on how they minimised the oversmoothing problem associated with GNNs
 
+# Developer Environment
+
+You're going to spend a lot of time working on your project, so it's a good idea to invest some time in making your development environment `comfy`. Start by doing little things like changing the font (maybe enable font ligatures?), and changing the default colour scheme - there is more to life that 'light' and 'dark' themes! Then take a look at some other tools - what do people in industry use? Ask yourself, what causes friction when you're working on your project? Is there a way to fix it? What stops you from openening your laptop and picking up where you left off? If an idea strikes you between lectures, how quickly could you implement it?
+
+You should learn to use your editors to the point where they become an extension of you. How much can you do without the mouse? Software engineering is your craft, treat it as such.
+
+- **[WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) and [Windows Terminal](https://apps.microsoft.com/detail/9n0dx20hk701?hl=en-GB&gl=GB)** - Finally, a good command line on Windows! (Other than powershell of course)
+- **[i3/tmux/nvim setup](https://www.youtube.com/watch?v=bdumjiHabhQ):** How quickly can you move between projects?
+- **[tmux](https://www.youtube.com/watch?v=niuOc02Rvrc):** Tmux, the terminal multiplexer
+- **Fuzzy Finders:** The best way to move around your codebase! Look at tools like [fzf](https://github.com/junegunn/fzf) or plugins for [JetBrains](https://plugins.jetbrains.com/plugin/23451-fuzzier) and [VSCode](https://marketplace.visualstudio.com/items?itemName=rlivings39.fzf-quick-open)
 

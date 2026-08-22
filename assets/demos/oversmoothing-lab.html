@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GNN Lab — The Oversmoothing Problem</title>
+<style>
+  :root {
+    --ink: #1f2430;
+    --ink-soft: #4a5264;
+    --paper: #faf8f4;
+    --card: #ffffff;
+    --line: #e6e1d6;
+    --indigo: #3f3f8f;
+    --indigo-deep: #2d2d68;
+    --indigo-soft: #eef0fb;
+    --amber: #b7791f;
+    --amber-soft: #fdf6e7;
+    --green: #1e7a54;
+    --green-soft: #e9f6ef;
+    --red: #a13c3c;
+    --red-soft: #fbecec;
+    --mono: "SFMono-Regular", "JetBrains Mono", "Fira Code", Consolas, monospace;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .hero { max-width: 1080px; margin: 0 auto; padding: 64px 28px 8px; }
+  .hero .kicker {
+    display: inline-block; font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--amber); border: 1px solid #e8cf9f; background: var(--amber-soft);
+    padding: 5px 12px; border-radius: 999px; margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: var(--serif); font-size: clamp(36px, 5.4vw, 56px); line-height: 1.06; font-weight: 600;
+    letter-spacing: -.015em; color: var(--indigo-deep); margin-bottom: 18px;
+  }
+  .hero h1 em { font-style: italic; color: var(--amber); }
+  .hero p.lede { font-size: 19px; color: var(--ink-soft); max-width: 760px; }
+
+  main { max-width: 1080px; margin: 0 auto; padding: 36px 28px 90px; }
+
+  /* ---------- playground ---------- */
+  .playground { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 24px; box-shadow: 0 2px 8px rgba(31,36,48,.05); }
+
+  .presets { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .presets .lbl { font-size: 12.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); margin-right: 4px; }
+  .presets button {
+    font-size: 13.5px; font-weight: 600; font-family: var(--sans);
+    color: var(--indigo-deep); background: var(--indigo-soft); border: 1px solid #d5d9f5;
+    border-radius: 999px; padding: 6px 14px; cursor: pointer; transition: background .15s, color .15s;
+  }
+  .presets button:hover { border-color: var(--indigo); }
+  .presets button.active { background: var(--indigo-deep); color: #fff; border-color: var(--indigo-deep); }
+
+  .controls { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 14px 0; border-top: 1px dashed var(--line); border-bottom: 1px dashed var(--line); }
+  .controls button {
+    font-size: 14.5px; font-weight: 700; font-family: var(--sans);
+    color: #fff; background: var(--indigo-deep); border: none; border-radius: 10px;
+    padding: 11px 22px; cursor: pointer; transition: background .15s, transform .05s;
+  }
+  .controls button:hover { background: var(--indigo); }
+  .controls button:active { transform: translateY(1px); }
+  .controls button.secondary { background: var(--card); color: var(--indigo-deep); border: 1.5px solid var(--line); }
+  .controls button.secondary:hover { border-color: var(--indigo); background: var(--indigo-soft); }
+  .controls button:disabled { opacity: .45; cursor: default; }
+  .controls .resid { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--ink-soft); margin-left: auto; }
+  .controls .resid output { font-family: var(--mono); font-size: 13px; color: var(--indigo-deep); font-weight: 700; min-width: 34px; }
+  .controls .resid input[type=range] { accent-color: var(--indigo); }
+  .controls .layers { font-family: var(--mono); font-size: 14px; font-weight: 700; color: var(--indigo-deep); background: var(--indigo-soft); border-radius: 999px; padding: 6px 14px; }
+
+  .board { margin: 18px 0 0; }
+  .board svg { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(180deg, #ffffff, #faf9f6); }
+  .board svg .edge { stroke: #cfc9de; stroke-width: 2; stroke-linecap: round; }
+  .board svg .edge.bridge { stroke: var(--amber); stroke-dasharray: 5 4; }
+  .board svg .node circle { stroke: rgba(31,36,48,.35); stroke-width: 1.5; transition: fill .35s ease, stroke .15s; cursor: pointer; }
+  .board svg .node:hover circle, .board svg .node.hot circle { stroke: var(--indigo); stroke-width: 4; }
+  .board svg .node text { font-family: var(--mono); font-size: 13px; font-weight: 700; pointer-events: none; }
+  #hoverInfo { min-height: 24px; margin-top: 10px; font-family: var(--mono); font-size: 13.5px; color: var(--ink-soft); }
+
+  /* ---------- meters ---------- */
+  .meters { display: grid; grid-template-columns: 1.2fr 1.4fr auto; gap: 18px; align-items: stretch; margin-top: 18px; }
+  @media (max-width: 860px) { .meters { grid-template-columns: 1fr; } }
+
+  .meter, .chartbox, .avgbox {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px;
+  }
+  .meter-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .meter-head span { font-size: 12.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+  .meter-head b { font-family: var(--mono); font-size: 19px; color: var(--indigo-deep); }
+  .bar { height: 10px; border-radius: 999px; background: #e9e5da; overflow: hidden; }
+  .bar > div { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--green), var(--amber), var(--red)); transition: width .35s ease; }
+
+  .chartbox svg { width: 100%; height: auto; display: block; }
+  .chartbox .chart-labels { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--ink-soft); font-family: var(--mono); margin-top: 4px; }
+
+  .avgbox { display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+  .avgbox .avg-lbl { font-size: 12.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+  .avgbox .avg-row { display: flex; align-items: center; gap: 10px; }
+  .swatch { width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line); box-shadow: inset 0 0 0 1px rgba(255,255,255,.35); }
+  .avgbox .avg-note { font-size: 12.5px; color: var(--ink-soft); line-height: 1.45; }
+
+  .status { margin-top: 16px; border-radius: 12px; padding: 14px 18px; font-size: 15px; background: var(--indigo-soft); border: 1px solid #d5d9f5; }
+  .status .tag { display: block; font-size: 11.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--indigo); margin-bottom: 4px; }
+  .status.warn { background: var(--amber-soft); border-color: #eed9ac; }
+  .status.warn .tag { color: var(--amber); }
+  .status.alert { background: var(--red-soft); border-color: #efc4c4; }
+  .status.alert .tag { color: var(--red); }
+
+  /* ---------- explainer ---------- */
+  section.explain { margin-top: 48px; }
+  section.explain h2 { font-family: var(--serif); font-size: 27px; color: var(--indigo-deep); margin: 30px 0 12px; letter-spacing: -.01em; }
+  section.explain h2:first-child { margin-top: 0; }
+  section.explain p { max-width: 800px; margin-bottom: 14px; }
+  section.explain strong { color: var(--indigo-deep); }
+  section.explain a { color: var(--indigo); }
+
+  .formula {
+    font-family: var(--serif); font-size: 20px; text-align: center; padding: 22px 18px;
+    background: linear-gradient(180deg, #ffffff, #f7f5ef); border: 1px solid var(--line);
+    border-radius: 14px; margin: 18px 0; color: var(--ink);
+  }
+  .formula .frac { display: inline-block; vertical-align: middle; text-align: center; margin: 0 6px; }
+  .formula .frac .top { display: block; border-bottom: 1.6px solid var(--ink); padding: 0 8px 3px; }
+  .formula .frac .bot { display: block; padding: 3px 8px 0; font-size: .8em; }
+  .formula .sub { font-size: .62em; vertical-align: sub; }
+  .formula .hl { background: var(--amber-soft); border-radius: 6px; padding: 1px 6px; color: var(--amber); }
+  code { font-family: var(--mono); font-size: .86em; background: rgba(63,63,143,.09); color: var(--indigo-deep); padding: 2px 6px; border-radius: 6px; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 18px 0; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+  .grid2 .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+  .grid2 .card h3 { font-size: 15px; font-weight: 700; color: var(--indigo-deep); margin-bottom: 8px; }
+  .grid2 .card p, .grid2 .card li { font-size: 14.5px; color: var(--ink-soft); }
+  .grid2 .card ul { margin: 4px 0 0 18px; }
+  .grid2 .card li + li { margin-top: 5px; }
+
+  ol.tryit { margin: 8px 0 0 22px; max-width: 800px; }
+  ol.tryit li { margin-bottom: 9px; }
+
+  footer { max-width: 1080px; margin: 0 auto; padding: 0 28px 50px; color: var(--ink-soft); font-size: 13px; }
+  footer .inner { border-top: 1px solid var(--line); padding-top: 18px; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <span class="kicker">GNN Lab · Message Passing</span>
+  <h1>Why deep GNNs fail: <em>oversmoothing</em></h1>
+  <p class="lede">Every node in the graph below holds a 3-dimensional feature vector, rendered directly as its colour (each channel capped at 0–255). Press <strong>Forward pass</strong> to run one graph-convolution layer: each node replaces its vector with the average of its neighbours' vectors — and its own. Press it again, and again, and watch what happens.</p>
+</header>
+
+<main>
+
+  <section class="playground">
+
+    <div class="presets">
+      <span class="lbl">Graph</span>
+      <button data-preset="communities" class="active">Two communities</button>
+      <button data-preset="ring">Ring</button>
+      <button data-preset="star">Star</button>
+      <button data-preset="path">Path</button>
+    </div>
+
+    <div class="controls">
+      <button id="stepBtn">Forward pass →</button>
+      <button id="resetBtn" class="secondary">↺ Reset</button>
+      <label class="resid">Keep own features (β)
+        <input type="range" id="beta" min="0" max="80" value="0" step="5">
+        <output id="betaVal">0%</output>
+      </label>
+      <span class="layers" id="layerLabel">Layer 0</span>
+    </div>
+
+    <div class="board">
+      <svg id="graph" viewBox="0 0 900 520" role="img" aria-label="Graph whose node colours are feature vectors"></svg>
+      <div id="hoverInfo">Hover a node to inspect its feature vector.</div>
+    </div>
+
+    <div class="meters">
+      <div class="meter">
+        <div class="meter-head"><span>Feature diversity</span><b id="divVal">—</b></div>
+        <div class="bar"><div id="divBar" style="width:100%"></div></div>
+      </div>
+      <div class="chartbox">
+        <svg id="chartSvg" viewBox="0 0 320 122" role="img" aria-label="Diversity per layer"></svg>
+        <div class="chart-labels"><span>0 layers</span><span id="chartMax">60 layers</span></div>
+      </div>
+      <div class="avgbox">
+        <span class="avg-lbl">Convergence target</span>
+        <div class="avg-row"><span class="swatch" id="avgSwatch"></span><span id="avgRgb" class="avg-note" style="font-family:var(--mono);font-size:12.5px"></span></div>
+        <span class="avg-note">The colour every node is heading toward: the degree-weighted average of the initial features.</span>
+      </div>
+    </div>
+
+    <div class="status" id="status">
+      <span class="tag">Ready</span>
+      <span id="statusText">Each node starts with a distinct feature vector. Press <strong>Forward pass</strong> to run one message-passing layer.</span>
+    </div>
+  </section>
+
+  <section class="explain">
+    <h2>The rule</h2>
+    <p>This is the core of every graph neural network: a <em>message-passing</em> (aggregation) step in which each node gathers its neighbours' feature vectors and combines them with its own. Here, with mean aggregation including a self-loop:</p>
+
+    <div class="formula">
+      <span class="op">h</span><sub class="sub">v</sub><sup>(ℓ+1)</sup> = <span class="frac"><span class="top">h<sub class="sub">v</sub><sup>(ℓ)</sup> + Σ<sub class="sub">u ∈ N(v)</sub> h<sub class="sub">u</sub><sup>(ℓ)</sup></span><span class="bot">1 + deg(v)</span></span>
+    </div>
+
+    <p>In a real GNN there is also a learned weight matrix <code>W</code> and a nonlinearity <code>σ</code> around this aggregation. The demo drops them on purpose: oversmoothing is caused by the <em>aggregation itself</em>, not by the weights — no matter how <code>W</code> is trained, repeatedly averaging over the neighbourhood squeezes the features together.</p>
+
+    <h2>What you just saw</h2>
+    <p>Layer by layer, each node's colour becomes the average of its neighbours'. Because every node sits in the same connected graph, the averaging cascades: after a few layers the two communities start bleeding into each other, and after enough layers <strong>every node has (almost) the same feature vector</strong> — the degree-weighted average of the initial colours, shown in the <em>Convergence target</em> box. That collapse is oversmoothing.</p>
+    <p>Once all features are identical, no downstream classifier can tell the nodes apart: node <code>0</code> and node <code>9</code> are now the same point in feature space. This is why stacking more GNN layers usually <em>hurts</em> accuracy after about 2–3 layers, and why "deeper is better" — true for CNNs and Transformers — fails for plain GNNs.</p>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>Topology controls the speed</h3>
+        <p>How fast a graph collapses is governed by its <em>mixing time</em>. A star graph converges almost immediately (the hub averages everything in one step); a ring takes many layers because information diffuses slowly around the cycle; a path is slowest of all — try each preset and watch the diversity curve.</p>
+      </div>
+      <div class="card">
+        <h3>Residuals slow it — but don't stop it</h3>
+        <p>Drag <strong>β</strong> up to keep a fraction of each node's own features per layer (a residual connection). Convergence slows down, but the destination doesn't change: the fixed point of the averaging operator is the same. That's why plain residuals only delay oversmoothing, and why modern fixes (JK-Net, GCNII, PairNorm, DropEdge, normalisation) change the operator itself.</p>
+      </div>
+    </div>
+
+    <h2>Try this</h2>
+    <ol class="tryit">
+      <li><strong>Press Forward pass 3–4 times</strong> on the default graph. The warm left community and cool right community bleed into each other across the two dashed bridge edges — the same way information crosses a graph in a real GNN.</li>
+      <li><strong>Keep going.</strong> Around layer 6–10 the diversity meter collapses below 5% and the alert appears: the graph is oversmoothed. Note how close the final colour is to the predicted <em>convergence target</em>.</li>
+      <li><strong>Switch to the path graph.</strong> Half the nodes start red, half blue. Watch a colour "front" diffuse along the path like heat — it takes many layers to mix, and the diversity curve decays slowly.</li>
+      <li><strong>Compare ring vs star.</strong> Same number of nodes, wildly different collapse speeds. The star is oversmoothed after 2–3 layers; the ring barely moves in 10.</li>
+      <li><strong>Raise β to 80%</strong> and re-run: the collapse happens much more slowly, and per-layer colour changes are small — a good intuition for why residual connections make deep GNN training feasible, even if they don't solve the problem by themselves.</li>
+    </ol>
+  </section>
+
+</main>
+
+<footer>
+  <div class="inner">GNN Lab — an interactive introduction to graph neural networks. Built as a single self-contained page; no frameworks, no network requests.</div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ================= presets ================= */
+  /* Each preset: nodes [{x, y, rgb:[r,g,b]}], edges [[a,b] or {a,b,bridge:true}] */
+  var PRESETS = {
+    communities: {
+      name: "Two communities",
+      nodes: [
+        { x: 150, y: 130, rgb: [224, 56, 42] },
+        { x: 300, y: 118, rgb: [242, 138, 28] },
+        { x: 142, y: 272, rgb: [198, 38, 92] },
+        { x: 322, y: 282, rgb: [250, 178, 40] },
+        { x: 232, y: 392, rgb: [178, 66, 124] },
+        { x: 600, y: 118, rgb: [38, 120, 220] },
+        { x: 752, y: 130, rgb: [30, 168, 204] },
+        { x: 578, y: 282, rgb: [58, 88, 202] },
+        { x: 762, y: 272, rgb: [40, 198, 152] },
+        { x: 672, y: 392, rgb: [92, 60, 190] }
+      ],
+      edges: [
+        [0, 1], [0, 2], [1, 3], [2, 3], [2, 4], [3, 4],
+        [5, 6], [5, 7], [6, 8], [7, 8], [7, 9], [8, 9],
+        { a: 3, b: 7, bridge: true }, { a: 4, b: 9, bridge: true }
+      ]
+    },
+    ring: {
+      name: "Ring",
+      nodes: (function () {
+        var warm = [[240, 120, 40], [230, 70, 50], [250, 170, 50], [200, 60, 100]];
+        var cool = [[40, 130, 210], [50, 190, 160], [70, 80, 190], [30, 160, 200]];
+        var ns = [], cx = 450, cy = 250, r = 170;
+        for (var i = 0; i < 8; i++) {
+          var a = (-90 + i * 45) * Math.PI / 180;
+          ns.push({ x: cx + r * Math.cos(a), y: cy + r * Math.sin(a), rgb: i % 2 === 0 ? warm[i / 2] : cool[(i - 1) / 2] });
+        }
+        return ns;
+      })(),
+      edges: [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 0]]
+    },
+    star: {
+      name: "Star",
+      nodes: (function () {
+        var ns = [{ x: 450, y: 250, rgb: [140, 140, 150] }];
+        var leaf = [[235, 90, 50], [60, 160, 80], [50, 120, 215], [240, 180, 40], [150, 70, 180], [40, 190, 170]];
+        for (var i = 0; i < 6; i++) {
+          var a = (-90 + i * 60) * Math.PI / 180;
+          ns.push({ x: 450 + 185 * Math.cos(a), y: 250 + 185 * Math.sin(a), rgb: leaf[i] });
+        }
+        return ns;
+      })(),
+      edges: [[0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6]]
+    },
+    path: {
+      name: "Path",
+      nodes: (function () {
+        var warm = [[198, 62, 44], [224, 98, 48], [242, 142, 52], [250, 178, 58], [246, 208, 84]];
+        var cool = [[92, 152, 222], [72, 128, 214], [56, 104, 206], [44, 84, 196]];
+        var ns = [];
+        for (var i = 0; i < 9; i++) {
+          var x = 120 + i * 82.5;
+          ns.push({ x: x, y: 250 + 30 * Math.sin(x / 90), rgb: i < 5 ? warm[i] : cool[i - 5] });
+        }
+        return ns;
+      })(),
+      edges: [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 8]]
+    }
+  };
+
+  var MAX_LAYERS = 60;
+  var SVGNS = "http://www.w3.org/2000/svg";
+
+  /* ================= state ================= */
+  var state = {
+    name: "communities",
+    nodes: [],        // {x, y, rgb:[r,g,b], init:[r,g,b]}
+    edges: [],        // {a, b, bridge}
+    layer: 0,
+    beta: 0,          // fraction of own features kept per layer
+    divHistory: []    // diversity per layer (index 0 = input)
+  };
+
+  var els = {
+    graph: document.getElementById("graph"),
+    stepBtn: document.getElementById("stepBtn"),
+    resetBtn: document.getElementById("resetBtn"),
+    beta: document.getElementById("beta"),
+    betaVal: document.getElementById("betaVal"),
+    layerLabel: document.getElementById("layerLabel"),
+    hoverInfo: document.getElementById("hoverInfo"),
+    divVal: document.getElementById("divVal"),
+    divBar: document.getElementById("divBar"),
+    chartSvg: document.getElementById("chartSvg"),
+    chartMax: document.getElementById("chartMax"),
+    avgSwatch: document.getElementById("avgSwatch"),
+    avgRgb: document.getElementById("avgRgb"),
+    status: document.getElementById("status"),
+    statusText: document.getElementById("statusText")
+  };
+
+  /* ================= helpers ================= */
+  function clamp(v) { return Math.max(0, Math.min(255, v)); }
+
+  function degrees() {
+    var d = state.nodes.map(function () { return 0; });
+    state.edges.forEach(function (e) { d[e.a]++; d[e.b]++; });
+    return d;
+  }
+
+  /* mean pairwise Euclidean distance between node feature vectors, normalised to [0,1] */
+  function diversity() {
+    var ns = state.nodes, sum = 0, count = 0;
+    for (var i = 0; i < ns.length; i++) {
+      for (var j = i + 1; j < ns.length; j++) {
+        var dr = ns[i].rgb[0] - ns[j].rgb[0];
+        var dg = ns[i].rgb[1] - ns[j].rgb[1];
+        var db = ns[i].rgb[2] - ns[j].rgb[2];
+        sum += Math.sqrt(dr * dr + dg * dg + db * db);
+        count++;
+      }
+    }
+    if (!count) return 0;
+    return sum / count / (Math.sqrt(3) * 255);   // max possible distance
+  }
+
+  /* degree-weighted average of the initial colours = stationary point of the
+     self-loop mean aggregation (fixed point of the random-walk transition). */
+  function convergenceTarget() {
+    var d = degrees();
+    var wSum = 0;
+    var acc = [0, 0, 0];
+    state.nodes.forEach(function (n, i) {
+      var w = d[i] + 1;
+      wSum += w;
+      for (var c = 0; c < 3; c++) acc[c] += w * n.init[c];
+    });
+    return acc.map(function (v) { return clamp(Math.round(v / wSum)); });
+  }
+
+  function rgbString(v) { return "rgb(" + Math.round(v[0]) + "," + Math.round(v[1]) + "," + Math.round(v[2]) + ")"; }
+
+  function textColor(v) {
+    var lum = 0.299 * v[0] + 0.587 * v[1] + 0.114 * v[2];
+    return lum > 150 ? "#1f2430" : "#ffffff";
+  }
+
+  /* ================= graph rendering ================= */
+  var circles = [];   // per-node {g, circle, text}
+
+  function buildGraph() {
+    els.graph.innerHTML = "";
+    circles = [];
+    state.edges.forEach(function (e) {
+      var line = document.createElementNS(SVGNS, "line");
+      line.setAttribute("x1", state.nodes[e.a].x);
+      line.setAttribute("y1", state.nodes[e.a].y);
+      line.setAttribute("x2", state.nodes[e.b].x);
+      line.setAttribute("y2", state.nodes[e.b].y);
+      line.setAttribute("class", "edge" + (e.bridge ? " bridge" : ""));
+      els.graph.appendChild(line);
+    });
+    state.nodes.forEach(function (n, i) {
+      var g = document.createElementNS(SVGNS, "g");
+      g.setAttribute("class", "node");
+      var c = document.createElementNS(SVGNS, "circle");
+      c.setAttribute("r", 26);
+      c.setAttribute("cx", n.x);
+      c.setAttribute("cy", n.y);
+      var t = document.createElementNS(SVGNS, "text");
+      t.setAttribute("x", n.x);
+      t.setAttribute("y", n.y + 4.5);
+      t.setAttribute("text-anchor", "middle");
+      t.textContent = i;
+      g.appendChild(c);
+      g.appendChild(t);
+      g.addEventListener("mouseenter", function () { hover(i, true); });
+      g.addEventListener("mouseleave", function () { hover(i, false); });
+      els.graph.appendChild(g);
+      circles.push({ g: g, circle: c, text: t });
+    });
+  }
+
+  function paintGraph() {
+    state.nodes.forEach(function (n, i) {
+      var col = rgbString(n.rgb);
+      circles[i].circle.setAttribute("fill", col);
+      circles[i].text.setAttribute("fill", textColor(n.rgb));
+    });
+  }
+
+  var hovered = -1;
+  function refreshHover() {
+    if (hovered < 0) return;
+    var n = state.nodes[hovered];
+    var d = degrees()[hovered];
+    els.hoverInfo.textContent = "Node " + hovered + "  ·  degree " + d + "  ·  feature (" +
+      Math.round(n.rgb[0]) + ", " + Math.round(n.rgb[1]) + ", " + Math.round(n.rgb[2]) + ")";
+  }
+  function hover(i, on) {
+    if (on) {
+      hovered = i;
+      circles.forEach(function (c, k) { c.g.classList.toggle("hot", k === i); });
+      refreshHover();
+    } else if (hovered === i) {
+      hovered = -1;
+      circles.forEach(function (c) { c.g.classList.remove("hot"); });
+      els.hoverInfo.textContent = "Hover a node to inspect its feature vector.";
+    }
+  }
+
+  /* ================= meters ================= */
+  function renderMeters() {
+    var d = diversity();
+    els.divVal.textContent = (d * 100).toFixed(1) + "%";
+    els.divBar.style.width = (d * 100).toFixed(1) + "%";
+
+    var target = convergenceTarget();
+    els.avgSwatch.style.background = rgbString(target);
+    els.avgRgb.textContent = "(" + target[0] + ", " + target[1] + ", " + target[2] + ")";
+
+    renderChart();
+  }
+
+  function renderChart() {
+    var W = 320, H = 122, L = 10, R = 8, T = 8, B = 18;
+    var pw = W - L - R, ph = H - T - B;
+    var svg = els.chartSvg;
+    svg.innerHTML = "";
+    function y(d) { return T + (1 - d) * ph; }
+
+    /* gridlines + labels */
+    [0, 0.25, 0.5, 0.75, 1].forEach(function (d) {
+      var line = document.createElementNS(SVGNS, "line");
+      line.setAttribute("x1", L); line.setAttribute("y1", y(d));
+      line.setAttribute("x2", W - R); line.setAttribute("y2", y(d));
+      line.setAttribute("stroke", "#e9e5da"); line.setAttribute("stroke-width", 1);
+      svg.appendChild(line);
+      var lab = document.createElementNS(SVGNS, "text");
+      lab.setAttribute("x", L - 3); lab.setAttribute("y", y(d) + 3);
+      lab.setAttribute("text-anchor", "end");
+      lab.setAttribute("font-size", 8.5);
+      lab.setAttribute("fill", "#9aa0b0");
+      lab.setAttribute("font-family", "var(--mono)");
+      lab.textContent = d.toFixed(d % 0.25 === 0 ? 2 : 1).replace(/\.?0+$/, "");
+      svg.appendChild(lab);
+    });
+
+    /* area under the curve */
+    var pts = [];
+    state.divHistory.forEach(function (d, i) {
+      var x = L + (i / (MAX_LAYERS - 1)) * pw;
+      pts.push(x.toFixed(1) + "," + y(d).toFixed(1));
+    });
+    if (pts.length >= 2) {
+      var area = document.createElementNS(SVGNS, "polygon");
+      var lastX = L + ((state.divHistory.length - 1) / (MAX_LAYERS - 1)) * pw;
+      area.setAttribute("points", L + "," + (T + ph) + " " + pts.join(" ") + " " + lastX.toFixed(1) + "," + (T + ph));
+      area.setAttribute("fill", "rgba(63,63,143,.10)");
+      svg.appendChild(area);
+      var poly = document.createElementNS(SVGNS, "polyline");
+      poly.setAttribute("points", pts.join(" "));
+      poly.setAttribute("fill", "none");
+      poly.setAttribute("stroke", "#3f3f8f");
+      poly.setAttribute("stroke-width", 2);
+      poly.setAttribute("stroke-linejoin", "round");
+      svg.appendChild(poly);
+      var cur = document.createElementNS(SVGNS, "circle");
+      var cxp = pts[pts.length - 1].split(",");
+      cur.setAttribute("cx", cxp[0]); cur.setAttribute("cy", cxp[1]);
+      cur.setAttribute("r", 3.5);
+      cur.setAttribute("fill", "#b7791f");
+      svg.appendChild(cur);
+    }
+  }
+
+  /* ================= status ================= */
+  function updateStatus() {
+    var d = diversity();
+    els.status.className = "status";
+    var msg = "";
+    if (state.layer === 0) {
+      els.status.className = "status";
+      msg = "Each node starts with a distinct feature vector. Press <strong>Forward pass</strong> to run one message-passing layer.";
+    } else if (d <= 0.05) {
+      els.status.className = "status alert";
+      msg = "<strong>Oversmoothing.</strong> Diversity is below 5% — every node now has nearly the same feature vector, so no classifier can distinguish them. The colours have converged to the degree-weighted average of the input (see the <em>convergence target</em>).";
+    } else if (d <= 0.2) {
+      els.status.className = "status warn";
+      msg = "<strong>Heavy smoothing.</strong> Communities have largely bled together and individual node identities are fading. A few more layers will fully oversmooth the graph.";
+    } else if (d <= 0.5) {
+      els.status.className = "status warn";
+      msg = "<strong>Mixing.</strong> Neighbouring nodes now share a lot of their features; distinct regions are starting to blur. This is normal after a few layers — the problem is where it ends up.";
+    } else {
+      els.status.className = "status";
+      msg = "<strong>Distinct features.</strong> Nodes still carry individual information. Each forward pass moves every colour one step toward its neighbours' average.";
+    }
+    els.statusText.innerHTML = msg;
+  }
+
+  /* ================= forward pass ================= */
+  function step() {
+    if (state.layer >= MAX_LAYERS) return;
+    var deg = degrees();
+    var beta = state.beta;
+    state.nodes.forEach(function (n, i) {
+      var sum = [n.rgb[0], n.rgb[1], n.rgb[2]];
+      state.edges.forEach(function (e) {
+        var j = e.a === i ? e.b : (e.b === i ? e.a : -1);
+        if (j >= 0) {
+          sum[0] += state.nodes[j].rgb[0];
+          sum[1] += state.nodes[j].rgb[1];
+          sum[2] += state.nodes[j].rgb[2];
+        }
+      });
+      var cnt = deg[i] + 1;               // self-loop + neighbours
+      var avg = [sum[0] / cnt, sum[1] / cnt, sum[2] / cnt];
+      n.rgb = [
+        clamp(beta * n.rgb[0] + (1 - beta) * avg[0]),
+        clamp(beta * n.rgb[1] + (1 - beta) * avg[1]),
+        clamp(beta * n.rgb[2] + (1 - beta) * avg[2])
+      ];
+    });
+    state.layer++;
+    state.divHistory.push(diversity());
+    paintGraph();
+    refreshHover();
+    renderMeters();
+    updateStatus();
+    els.layerLabel.textContent = "Layer " + state.layer;
+    if (state.layer >= MAX_LAYERS) {
+      els.stepBtn.disabled = true;
+      els.statusText.innerHTML += " <em>(Maximum of " + MAX_LAYERS + " layers reached — press Reset to explore more.)</em>";
+    }
+  }
+
+  function reset() {
+    state.nodes = state.nodes.map(function (n) {
+      return { x: n.x, y: n.y, rgb: n.init.slice(), init: n.init.slice() };
+    });
+    state.layer = 0;
+    state.divHistory = [diversity()];
+    els.stepBtn.disabled = false;
+    paintGraph();
+    renderMeters();
+    updateStatus();
+    els.layerLabel.textContent = "Layer 0";
+    els.hoverInfo.textContent = "Hover a node to inspect its feature vector.";
+  }
+
+  function loadPreset(name) {
+    var p = PRESETS[name];
+    state.name = name;
+    state.nodes = p.nodes.map(function (n) { return { x: n.x, y: n.y, rgb: n.rgb.slice(), init: n.rgb.slice() }; });
+    state.edges = p.edges.map(function (e) {
+      return Array.isArray(e) ? { a: e[0], b: e[1], bridge: false } : { a: e.a, b: e.b, bridge: !!e.bridge };
+    });
+    state.layer = 0;
+    state.divHistory = [];
+    buildGraph();
+    paintGraph();
+    state.divHistory.push(diversity());   // layer 0 value
+    renderMeters();
+    updateStatus();
+    els.layerLabel.textContent = "Layer 0";
+    els.stepBtn.disabled = false;
+    els.hoverInfo.textContent = "Hover a node to inspect its feature vector.";
+    document.querySelectorAll(".presets button").forEach(function (b) {
+      b.classList.toggle("active", b.getAttribute("data-preset") === name);
+    });
+  }
+
+  /* ================= wiring ================= */
+  els.stepBtn.addEventListener("click", step);
+  els.resetBtn.addEventListener("click", reset);
+  els.beta.addEventListener("input", function () {
+    state.beta = parseInt(els.beta.value, 10) / 100;
+    els.betaVal.textContent = Math.round(state.beta * 100) + "%";
+  });
+  document.querySelectorAll(".presets button").forEach(function (b) {
+    b.addEventListener("click", function () { loadPreset(b.getAttribute("data-preset")); });
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === " " || e.key === "Enter") { e.preventDefault(); step(); }
+  });
+
+  loadPreset("communities");
+})();
+</script>
+
+</body>
+</html>

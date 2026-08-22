@@ -71,7 +71,7 @@
             <a href="{{ post.github }}"><i class="fab fa-fw fa-github zoom" aria-hidden="true"></i></a>
             {% endif %}
           </p>
-        {% elsif post.collection == 'fyp' %}
+        {% elsif post.collection == 'fyp' or post.collection == 'demos' %}
           <p>
             {% if post.link %}
             <a href="{{ post.link }}"><i class="fas fa-fw fa-link zoom" aria-hidden="true"></i></a>

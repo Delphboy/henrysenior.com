@@ -1,0 +1,19 @@
+# Local development overrides.
+#
+# The main _config.yml sets `url: https://henrysenior.com`, which makes every
+# internal link (navigation bar, archive pages, sidebar, pagination, ...)
+# point at the live site. This file overrides `url` so links resolve to your
+# local server instead.
+#
+# Run with:
+#
+#     bundle exec jekyll serve --config _config.yml,_config.dev.yml
+#
+# - `jekyll serve`: links become http://localhost:PORT/... (PORT is whatever
+#   port you serve on)
+# - `jekyll build`: links become root-relative (/about/, /demos/, ...)
+#
+# Netlify and GitHub Pages deployments ignore this file and keep using
+# _config.yml, so production is unaffected.
+url: ""
+baseurl: ""

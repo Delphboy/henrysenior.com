@@ -163,8 +163,12 @@ exclude:
   - config
   - gulpfile.js
   - log
+  - markdown_generator
   - node_modules
   - package.json
+  - talkmap
+  - talkmap.py
+  - talkmap.ipynb
   - tmp
   - vendor
 keep_files:
@@ -196,19 +200,16 @@ kramdown:
 
 # Collections
 collections:
-  teaching:
-    output: true
-    permalink: /:collection/:path/
   publications:
     output: true
     permalink: /:collection/:path/
   projects:
     output: true
     permalink: /:collection/:path/
-  fyp:
+  demos:
     output: true
     permalink: /:collection/:path/
-  talks:
+  fyp:
     output: true
     permalink: /:collection/:path/
 
@@ -233,15 +234,6 @@ defaults:
     values:
       layout: single
       author_profile: false
-  # _teaching
-  - scope:
-      path: ""
-      type: teaching
-    values:
-      layout: single
-      author_profile: false
-      share: false
-      comments: false
   # _publications
   - scope:
       path: ""
@@ -270,14 +262,15 @@ defaults:
       author_profile: false
       share: false
       comment: false
-  # _talks
+  # _demos
   - scope:
       path: ""
-      type: talks
+      type: demos
     values:
-      layout: talk
+      layout: single
       author_profile: false
       share: false
+      comment: false
 
 
 # Sass/SCSS
@@ -293,22 +286,38 @@ permalink: /:categories/:title/
 timezone: Europe/London # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 
+# # Plugins
+# plugins:
+#   - jekyll-paginate
+#   - jekyll-sitemap
+#   - jekyll-gist
+#   - jekyll-feed
+#   - jekyll-redirect-from
+#   - gemfile
+# # mimic GitHub Pages with --safe
+# whitelist:
+#   - jekyll-paginate
+#   - jekyll-sitemap
+#   - jekyll-gist
+#   - jekyll-feed
+#   - jemoji
 # Plugins
 plugins:
+  - jekyll-feed
+  - jekyll-gist
   - jekyll-paginate
   - jekyll-sitemap
-  - jekyll-gist
-  - jekyll-feed
   - jekyll-redirect-from
-  - gemfile
-# mimic GitHub Pages with --safe
-whitelist:
-  - jekyll-paginate
-  - jekyll-sitemap
-  - jekyll-gist
-  - jekyll-feed
   - jemoji
 
+# Mimic GitHub Pages with --safe
+whitelist:
+  - jekyll-feed
+  - jekyll-gist
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-redirect-from
+  - jemoji
 
 # Archives
 #  Type

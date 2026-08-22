@@ -2,7 +2,7 @@
 layout: archive
 title: "Final Year Project"
 permalink: /fyp/
-author_profile: false
+author_profile: true
 ---
 
 {% include base_path %}

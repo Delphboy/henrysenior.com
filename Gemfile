@@ -11,6 +11,8 @@ end
 
 gem 'github-pages'
 
+gem 'bigdecimal'
+gem 'csv'
 gem 'erb'
 gem 'faraday-retry'
 gem 'tempfile'

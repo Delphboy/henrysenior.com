@@ -155,12 +155,6 @@
 </head>
 <body>
 
-<header class="hero">
-  <span class="kicker">GNN Lab · Message Passing</span>
-  <h1>Why deep GNNs fail: <em>oversmoothing</em></h1>
-  <p class="lede">Every node in the graph below holds a 3-dimensional feature vector, rendered directly as its colour (each channel capped at 0–255). Press <strong>Forward pass</strong> to run one graph-convolution layer: each node replaces its vector with the average of its neighbours' vectors — and its own. Press it again, and again, and watch what happens.</p>
-</header>
-
 <main>
 
   <section class="playground">
@@ -210,46 +204,7 @@
     </div>
   </section>
 
-  <section class="explain">
-    <h2>The rule</h2>
-    <p>This is the core of every graph neural network: a <em>message-passing</em> (aggregation) step in which each node gathers its neighbours' feature vectors and combines them with its own. Here, with mean aggregation including a self-loop:</p>
-
-    <div class="formula">
-      <span class="op">h</span><sub class="sub">v</sub><sup>(ℓ+1)</sup> = <span class="frac"><span class="top">h<sub class="sub">v</sub><sup>(ℓ)</sup> + Σ<sub class="sub">u ∈ N(v)</sub> h<sub class="sub">u</sub><sup>(ℓ)</sup></span><span class="bot">1 + deg(v)</span></span>
-    </div>
-
-    <p>In a real GNN there is also a learned weight matrix <code>W</code> and a nonlinearity <code>σ</code> around this aggregation. The demo drops them on purpose: oversmoothing is caused by the <em>aggregation itself</em>, not by the weights — no matter how <code>W</code> is trained, repeatedly averaging over the neighbourhood squeezes the features together.</p>
-
-    <h2>What you just saw</h2>
-    <p>Layer by layer, each node's colour becomes the average of its neighbours'. Because every node sits in the same connected graph, the averaging cascades: after a few layers the two communities start bleeding into each other, and after enough layers <strong>every node has (almost) the same feature vector</strong> — the degree-weighted average of the initial colours, shown in the <em>Convergence target</em> box. That collapse is oversmoothing.</p>
-    <p>Once all features are identical, no downstream classifier can tell the nodes apart: node <code>0</code> and node <code>9</code> are now the same point in feature space. This is why stacking more GNN layers usually <em>hurts</em> accuracy after about 2–3 layers, and why "deeper is better" — true for CNNs and Transformers — fails for plain GNNs.</p>
-
-    <div class="grid2">
-      <div class="card">
-        <h3>Topology controls the speed</h3>
-        <p>How fast a graph collapses is governed by its <em>mixing time</em>. A star graph converges almost immediately (the hub averages everything in one step); a ring takes many layers because information diffuses slowly around the cycle; a path is slowest of all — try each preset and watch the diversity curve.</p>
-      </div>
-      <div class="card">
-        <h3>Residuals slow it — but don't stop it</h3>
-        <p>Drag <strong>β</strong> up to keep a fraction of each node's own features per layer (a residual connection). Convergence slows down, but the destination doesn't change: the fixed point of the averaging operator is the same. That's why plain residuals only delay oversmoothing, and why modern fixes (JK-Net, GCNII, PairNorm, DropEdge, normalisation) change the operator itself.</p>
-      </div>
-    </div>
-
-    <h2>Try this</h2>
-    <ol class="tryit">
-      <li><strong>Press Forward pass 3–4 times</strong> on the default graph. The warm left community and cool right community bleed into each other across the two dashed bridge edges — the same way information crosses a graph in a real GNN.</li>
-      <li><strong>Keep going.</strong> Around layer 6–10 the diversity meter collapses below 5% and the alert appears: the graph is oversmoothed. Note how close the final colour is to the predicted <em>convergence target</em>.</li>
-      <li><strong>Switch to the path graph.</strong> Half the nodes start red, half blue. Watch a colour "front" diffuse along the path like heat — it takes many layers to mix, and the diversity curve decays slowly.</li>
-      <li><strong>Compare ring vs star.</strong> Same number of nodes, wildly different collapse speeds. The star is oversmoothed after 2–3 layers; the ring barely moves in 10.</li>
-      <li><strong>Raise β to 80%</strong> and re-run: the collapse happens much more slowly, and per-layer colour changes are small — a good intuition for why residual connections make deep GNN training feasible, even if they don't solve the problem by themselves.</li>
-    </ol>
-  </section>
-
 </main>
-
-<footer>
-  <div class="inner">GNN Lab — an interactive introduction to graph neural networks. Built as a single self-contained page; no frameworks, no network requests.</div>
-</footer>
 
 <script>
 (function () {

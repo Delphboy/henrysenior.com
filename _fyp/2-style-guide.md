@@ -27,7 +27,7 @@ Results tables are going to be the main way in which you present your results, e
   3. Remember to justify your margins (if the last line of a paragraph goes funny, left align the last line).
   4. Ensure you are using an appropriate font: Calibri, Arial, Times New Roman etc. Remember to typeset any inline code using a monospace font.
   5. Ensure that any mathematics are correctly typesetted using Word’s equation system. (Or just use LaTeX!)
-  6. Ensure that your referencing style is consistent (Haomin and I like IEEE the referencing style)
+  6. Ensure that your referencing style is consistent. Haomin and I like IEEE the referencing style, so don't feel you have to use APA/Harvard. Just use an established approach and be consistent.
   7. If including a word count, make sure it is clearly visible at the start of the document (i.e. on the title page).
 
 A lot of the above concerns will be handled for you if you use LaTeX. [Overleaf](overleaf.com) is a good online LaTeX editor that Haomin and I both use.
